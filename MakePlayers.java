@@ -33,6 +33,7 @@ public class MakePlayers {
         JTable table = new JTable(content, columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
 
+        // button to start playing
         JButton play = new JButton("Play Game");
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
