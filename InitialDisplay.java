@@ -1,7 +1,6 @@
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Image;
 
 public class InitialDisplay {
     // displays to user Yahtzee home page and start then gets config info
@@ -19,7 +18,7 @@ public class InitialDisplay {
         upper.setBounds(0, 0, 1200, 400);
         JPanel panel = new JPanel();
         panel.setBounds(600, 800, 1200, 400);
-        // startGameFrame.setLayout();
+
         // image
         JLabel yahtzee = new JLabel();
         yahtzee.setIcon(new ImageIcon("images/Yahtzee.jpg"));
@@ -81,6 +80,7 @@ public class InitialDisplay {
                         mp.getPlayers();
                     }
                 });
+
                 panel.add(btn);
                 panel.repaint();
                 panel.revalidate();
@@ -88,16 +88,9 @@ public class InitialDisplay {
             }
         });
 
-        // start.setBounds(20, 10, 600, 400);
         panel.add(start);
 
-        // Box b = Box.createVerticalBox();
-        // b.add(yahtzee);
-        // b.add(start);
-        // b.setBounds(600, 0, 1200, 800);
-        // startGameFrame.add(b);
         startGameFrame.add(upper);
-        // startGameFrame.add(start);
         startGameFrame.add(panel);
 
         startGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
