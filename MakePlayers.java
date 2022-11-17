@@ -36,6 +36,7 @@ public class MakePlayers {
         JButton play = new JButton("Play Game");
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Play Game button Clicked");
                 String[] playerNames = new String[numPlayers];
                 // getting names added
                 for(int j = 0; j < numPlayers; j++) {
