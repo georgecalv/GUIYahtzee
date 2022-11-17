@@ -5,6 +5,8 @@ public class Yahtzee {
     private int sideDie;
     private int numPlayers;
     private String[] playerNames;
+    private Score score;
+    private Die die;
 
     public Yahtzee(int numDie, int numTurns, int sideDie, int numPlayers, String[] playerNames) {
         this.numDie = numDie;
@@ -12,10 +14,12 @@ public class Yahtzee {
         this.sideDie = sideDie;
         this.numPlayers = numPlayers;
         this.playerNames = playerNames;
+
+        this.score = new Score(this.numDie, this.sideDie);
+        this.die = new Die(this.sideDie);
+
     }
     public void playGame() {
-        for(int i = 0; i < this.numPlayers; i++) {
-            System.out.println(this.playerNames[i]);
-        }
+
     }
 }
