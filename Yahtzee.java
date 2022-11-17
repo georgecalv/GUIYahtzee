@@ -18,8 +18,8 @@ public class Yahtzee {
         this.playerNames = playerNames;
         this.score = new Score(this.numDie, this.sideDie);
         this.die = new Die(this.sideDie);
-
-        createPlayers();
+        this.playerVec = new Vector<Player>();
+        this.createPlayers();
     }
     // runs game
     public void playGame() {
