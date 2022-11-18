@@ -1,10 +1,3 @@
-InitialDisplay.class
-InitialDisplay.java
-InitialDisplay$1$1.class
-InitialDisplay$1.class
-MakePlayers.class
-Main.class
-MakePlayers$1.class
-Yahtzee.class
-Yahtzee$2.class
-Yahtzee$1.class
+#blanket ignored files (all files with the following extensions)
+*.class
+.DS_Store
