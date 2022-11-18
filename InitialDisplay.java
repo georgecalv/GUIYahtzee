@@ -94,7 +94,7 @@ public class InitialDisplay {
         startGameFrame.add(panel);
 
         startGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        startGameFrame.setSize(1200,800);
+        startGameFrame.setSize(1000,800);
         startGameFrame.setLocationRelativeTo(null);
         startGameFrame.setResizable(false);
         startGameFrame.setVisible(true);  

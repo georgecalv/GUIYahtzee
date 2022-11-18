@@ -28,7 +28,7 @@ public class MakePlayers {
         Vector<String> columnNames = new Vector<String>(Arrays.asList("Player Name"));
         Vector<Vector<String>> content = new Vector<Vector<String>>();
         for(int i = 0; i < this.numPlayers; i++) {
-            content.add(new Vector<String>(Arrays.asList("")));
+            content.add(new Vector<String>(Arrays.asList("Enter Name Here")));
         }
         JTable table = new JTable(content, columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -43,6 +43,7 @@ public class MakePlayers {
                 for(int j = 0; j < numPlayers; j++) {
                     playerNames[j] = content.get(j).get(0);
                 }
+                PlayerFrame.dispose();
                 Yahtzee game = new Yahtzee(numDie, numTurns, sideDie, numPlayers, playerNames);
                 game.playGame();
             }
@@ -51,7 +52,7 @@ public class MakePlayers {
         PlayerFrame.add(scrollPane);
         PlayerFrame.add(buttonP);
         PlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PlayerFrame.setSize(500,500);
+        PlayerFrame.setSize(500,200);
         PlayerFrame.setLocationRelativeTo(null);
         PlayerFrame.setResizable(false);
         PlayerFrame.setVisible(true);  
