@@ -2,6 +2,8 @@ import java.awt.event.*;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+
 import java.awt.*;
 import java.util.*;
 
@@ -20,28 +22,43 @@ public class MakePlayers {
         this.numPlayers = numPlayers;
     }
     public void getPlayers() {
+
         JFrame PlayerFrame = new JFrame("Players");
-        PlayerFrame.setLayout(new FlowLayout());
+        PlayerFrame.setLayout(new BorderLayout());
+
+        JPanel textP = new JPanel();
+        textP.setLayout(new BoxLayout(textP, BoxLayout.PAGE_AXIS));
+
         JPanel buttonP = new JPanel();
 
-        // making scroll bar
-        Vector<String> columnNames = new Vector<String>(Arrays.asList("Player Name"));
-        Vector<Vector<String>> content = new Vector<Vector<String>>();
+        // Dynamically create text boxes to enter player names in
+        Vector<JTextField> textBoxes = new Vector<JTextField>();
         for(int i = 0; i < this.numPlayers; i++) {
-            content.add(new Vector<String>(Arrays.asList("Enter Name Here")));
+
+            JPanel newPlayer = new JPanel();
+            
+            textBoxes.add(new JTextField());
+
+            textBoxes.get(i).setEditable(true);
+            textBoxes.get(i).setFont(new Font("Cooper Black", Font.PLAIN, 30));
+            textBoxes.get(i).setColumns(30);
+
+            newPlayer.add(new JLabel("Player " + (i + 1)));
+            newPlayer.add(textBoxes.get(i));
+            textP.add(newPlayer);
         }
-        JTable table = new JTable(content, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
 
         // button to start playing
         JButton play = new JButton("Play Game");
+        play.setPreferredSize(new Dimension(600, 100));
+
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Play Game button Clicked");
                 String[] playerNames = new String[numPlayers];
                 // getting names added
                 for(int j = 0; j < numPlayers; j++) {
-                    playerNames[j] = content.get(j).get(0);
+                    playerNames[j] = textBoxes.get(j).getText();
                 }
                 PlayerFrame.dispose();
                 Yahtzee game = new Yahtzee(numDie, numTurns, sideDie, numPlayers, playerNames);
@@ -49,10 +66,21 @@ public class MakePlayers {
             }
         });
         buttonP.add(play);
-        PlayerFrame.add(scrollPane);
-        PlayerFrame.add(buttonP);
+
+        JPanel titleP = new JPanel();
+        JLabel enterPlayerNames = new JLabel("Enter Your Player Names:");
+        enterPlayerNames.setFont(new Font("Title", Font.BOLD, 56));
+        titleP.add(enterPlayerNames);
+
+        PlayerFrame.add(titleP, BorderLayout.PAGE_START);
+        PlayerFrame.add(textP, BorderLayout.CENTER);
+        PlayerFrame.add(buttonP, BorderLayout.PAGE_END);
+
         PlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        PlayerFrame.setSize(1200,800);
         PlayerFrame.setSize(500,200);
+
         PlayerFrame.setLocationRelativeTo(null);
         PlayerFrame.setResizable(false);
         PlayerFrame.setVisible(true);  
