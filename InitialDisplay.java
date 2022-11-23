@@ -13,28 +13,34 @@ public class InitialDisplay {
     public void Display() {
         // intial Game startGameFrame settings
         JFrame startGameFrame = new JFrame("Yahtzee");
-        startGameFrame.setLayout(new FlowLayout());
-        JPanel upper = new JPanel();
-        upper.setBounds(0, 0, 1200, 400);
-        JPanel panel = new JPanel();
-        panel.setBounds(600, 800, 1200, 400);
+        startGameFrame.setLayout(new BorderLayout());
+        
+        JPanel imageP = new JPanel();
+        JPanel configP = new JPanel();
+        configP.setSize(800, 400);
 
         // image
         JLabel yahtzee = new JLabel();
         yahtzee.setIcon(new ImageIcon("images/Yahtzee.jpg"));
-
-
-        upper.add(yahtzee);
+        imageP.add(yahtzee);
 
         // Get settings of game then call make players
         JButton start = new JButton("Start Game");
+        start.setPreferredSize(new Dimension(600, 100));
+
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Start Game Button Clicked");
-                panel.removeAll();
+                configP.removeAll();
+
                 JLabel sdLbl = new JLabel("Number of Sides: ");
                 JLabel dieLbl = new JLabel("Number of Dice: ");
                 JLabel playerLbl = new JLabel("Number of Players");
+
+                sdLbl.setFont(new Font("Attribute", Font.PLAIN, 30));
+                dieLbl.setFont(new Font("Attribute", Font.PLAIN, 30));
+                playerLbl.setFont(new Font("Attribute", Font.PLAIN, 30));
         
                 // sides and number of die options
                 String[] sides = {"6", "8", "12"};
@@ -48,23 +54,28 @@ public class InitialDisplay {
         
                 // formatting
                 Box layout = Box.createVerticalBox();
+
                 Box box = Box.createHorizontalBox();
                 box.add(sdLbl);
                 box.add(sd);
+
                 Box box2 = Box.createHorizontalBox();
                 box2.add(dieLbl);
                 box2.add(di);
+
                 Box box3 = Box.createHorizontalBox();
                 box3.add(playerLbl);
                 box3.add(pl);
+
                 layout.add(box);
                 layout.add(box2);
                 layout.add(box3);
                 sd.setVisible(true);
-                panel.add(layout, SwingConstants.CENTER);
+                configP.add(layout);
         
                 // ok button
                 JButton btn = new JButton("OK");
+                btn.setPreferredSize(new Dimension(400, 100));
                 btn.addActionListener(new ActionListener() {
                     // runs game based on user selections
                     public void actionPerformed(ActionEvent e) {
@@ -78,20 +89,20 @@ public class InitialDisplay {
                         // startGameFrame.dispose();
                         MakePlayers mp = new MakePlayers(numDie, 2, sideDie, numPlayers);
                         mp.getPlayers();
+
+                        startGameFrame.dispose();
                     }
                 });
+                configP.add(btn);
 
-                panel.add(btn);
-                panel.repaint();
-                panel.revalidate();
-            
+                configP.repaint();
+                configP.revalidate(); 
             }
         });
+        configP.add(start, BorderLayout.PAGE_END);
 
-        panel.add(start);
-
-        startGameFrame.add(upper);
-        startGameFrame.add(panel);
+        startGameFrame.add(imageP, BorderLayout.PAGE_START);
+        startGameFrame.add(configP, BorderLayout.CENTER);
 
         startGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startGameFrame.setSize(1200,800);
