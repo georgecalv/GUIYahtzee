@@ -60,6 +60,7 @@ public class MakePlayers {
                 for(int j = 0; j < numPlayers; j++) {
                     playerNames[j] = textBoxes.get(j).getText();
                 }
+                PlayerFrame.dispose();
                 Yahtzee game = new Yahtzee(numDie, numTurns, sideDie, numPlayers, playerNames);
                 game.playGame();
             }
@@ -76,7 +77,10 @@ public class MakePlayers {
         PlayerFrame.add(buttonP, BorderLayout.PAGE_END);
 
         PlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         PlayerFrame.setSize(1200,800);
+        PlayerFrame.setSize(500,200);
+
         PlayerFrame.setLocationRelativeTo(null);
         PlayerFrame.setResizable(false);
         PlayerFrame.setVisible(true);  
