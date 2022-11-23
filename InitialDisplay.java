@@ -17,7 +17,7 @@ public class InitialDisplay {
         
         JPanel imageP = new JPanel();
         JPanel configP = new JPanel();
-        configP.setSize(800, 400);
+        configP.setSize(400, 400);
 
         // image
         JLabel yahtzee = new JLabel();
@@ -79,18 +79,23 @@ public class InitialDisplay {
                 btn.addActionListener(new ActionListener() {
                     // runs game based on user selections
                     public void actionPerformed(ActionEvent e) {
+
                         System.out.println("Okay Button clicked");
+
                         int index = sd.getSelectedIndex();
+
                         int sideDie = Integer.parseInt(sides[index]);
                         index = di.getSelectedIndex();
+
                         int numDie = Integer.parseInt(die[index]);
                         index = pl.getSelectedIndex();
+
                         int numPlayers = Integer.parseInt(player[index]);
-                        // startGameFrame.dispose();
-                        MakePlayers mp = new MakePlayers(numDie, 2, sideDie, numPlayers);
-                        mp.getPlayers();
 
                         startGameFrame.dispose();
+
+                        MakePlayers mp = new MakePlayers(numDie, 2, sideDie, numPlayers);
+                        mp.getPlayers();
                     }
                 });
                 configP.add(btn);
