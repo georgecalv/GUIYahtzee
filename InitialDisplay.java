@@ -98,6 +98,5 @@ public class InitialDisplay {
         startGameFrame.setLocationRelativeTo(null);
         startGameFrame.setResizable(false);
         startGameFrame.setVisible(true);  
-
     }
 }
