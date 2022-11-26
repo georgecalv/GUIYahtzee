@@ -15,6 +15,11 @@ public class Yahtzee {
     private Score score;
     private Die die;
     private int player;
+    // private JFrame GameFrame;
+    // private JPanel PlayerTurn;
+    // private JPanel Select;
+    // private JPanel Options;
+    // private JPanel DiceHand;
 
     public Yahtzee(int numDie, int numTurns, int sideDie, int numPlayers, String[] playerNames) {
         this.numDie = numDie;
@@ -27,6 +32,12 @@ public class Yahtzee {
         this.playerVec = new Vector<Player>();
         this.player = 0;
         this.createPlayers();
+        // this.GameFrame = new JFrame("Yahtzee");
+        // this.GameFrame.setLayout(new GridLayout(4,0));
+        // this.PlayerTurn = new JPanel(new FlowLayout());
+        // this.Select = new JPanel(new FlowLayout());
+        // this.Options = new JPanel(new FlowLayout());
+        // this.DiceHand = new JPanel(new FlowLayout());
     }
     // runs game
     public void playGame() {
@@ -43,39 +54,65 @@ public class Yahtzee {
         JPanel DiceHand = new JPanel(new FlowLayout());
 
         
-        
-        // while(player < this.numPlayers) {
-            JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
-            playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
-            PlayerTurn.add(playerDisplay);
-            // roll player dice
-            playerVec.get(player).rollDice();
-            this.hand = playerVec.get(player).getHand();
-            ArrayList<JCheckBox> images = displayHand(this.hand);
-            ArrayList<JCheckBox> selection = makeSelections();
-            for(int i = 0; i < images.size(); i++) {
-                DiceHand.add(images.get(i));
-                Select.add(selection.get(i));
-            }
-            // add buttons for re roll and display score card
-            JButton reRoll = new JButton("Reroll");
-            reRoll.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("Reroll button clicked");
+        JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
+        playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
+        PlayerTurn.add(playerDisplay);
+        // roll player dice
+        playerVec.get(player).rollDice();
+        this.hand = playerVec.get(player).getHand();
+        ArrayList<JCheckBox> images = displayHand(this.hand);
+        ArrayList<JCheckBox> selection = makeSelections();
+        for(int i = 0; i < images.size(); i++) {
+            DiceHand.add(images.get(i));
+            Select.add(selection.get(i));
+        }
+        // add buttons for re roll and display score card
+        JButton reRoll = new JButton("Reroll");
+        reRoll.addActionListener(new ActionListener() {
+            int turn = 0;
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Reroll button clicked");
+                if(turn <= 1) {
                     for(int j = 0; j < numDie; j++) {
                         if(!selection.get(j).isSelected()) {
                             hand.set(j, playerVec.get(player).getDie().rollDie());
                             images.get(j).setIcon(getImage(hand.get(j)));
                         }
                     }
+                    turn += 1;
                     DiceHand.revalidate();
                     DiceHand.repaint();
                 }
-            });
-            Options.add(reRoll);
+                // turn ended
+                else {
+                    playerVec.get(player).sortRolls();
+                    // score.checkRolls(hand);
+                    // ArrayList<JRadioButton> choices = playerVec.get(player).getScoreCard(score);
+                    System.out.println("end turn");
+                    if(player == numPlayers - 1) {
+                        player = 0;
+                    }
+                    else {
+                        player++;
+                    }
+                    hand.clear();
+                    images.clear();
+                    selection.clear();
+                    GameFrame.dispose();
+                    playGame();
 
-        //     this.player++;
-        // }
+                }
+            }
+        });
+        JButton dispScoreCard = new JButton("Display Score Card");
+        dispScoreCard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Display Score card clicked");
+                playerVec.get(player).displayScoreCard();
+            }
+        });
+        Options.add(reRoll);
+        Options.add(dispScoreCard);
 
         GameFrame.add(PlayerTurn);
         GameFrame.add(DiceHand);
