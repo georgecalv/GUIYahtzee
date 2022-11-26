@@ -36,34 +36,46 @@ public class Yahtzee {
         JPanel PlayerTurn = new JPanel(new FlowLayout());
         // JPanel DiceHand = new JPanel(new GridLayout(0, this.numDie));
         JPanel Options = new JPanel(new FlowLayout());
-        JPanel DiceHand = new JPanel();
+        JPanel DiceHand = new JPanel(new FlowLayout());
 
         
         ArrayList<Integer> hand;
-        int i = 0;
-        while(i < this.numPlayers){
-            JLabel playerDisplay = new JLabel(playerNames[i] + "'s Turn");
-            // playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
-            PlayerTurn.add(playerDisplay);
-            // roll player dice
-            playerVec.get(i).rollDice();
-            // get hand
-            hand = playerVec.get(i).getHand();
-            // sort hand
-            playerVec.get(i).sortRolls();
-            // display hand
-            ArrayList<JCheckBox> images = displayHand(i);
-            ArrayList<JCheckBox> selection = makeSelections();
-            for(int j = 0; j < images.size(); j++) {
-                DiceHand.add(images.get(i));
-            }
-            i++;
+        int player = 0;
+        // while(i < this.numPlayers){
+        //     JLabel playerDisplay = new JLabel(playerNames[i] + "'s Turn");
+        //     playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
+        //     PlayerTurn.add(playerDisplay);
+        //     // roll player dice
+        //     playerVec.get(i).rollDice();
+        //     // get hand
+        //     hand = playerVec.get(i).getHand();
+        //     // sort hand
+        //     // playerVec.get(i).sortRolls();
+        //     // display hand
+        //     ArrayList<JCheckBox> images = displayHand(i);
+        //     // ArrayList<JCheckBox> selection = makeSelections();
+        //     for(int j = 0; j < images.size(); j++) {
+        //         DiceHand.add(images.get(i));
+        //     }
+        //     // next player
+        //     i++;
 
+        // }
+
+        JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
+        playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
+        PlayerTurn.add(playerDisplay);
+        // roll player dice
+        playerVec.get(player).rollDice();
+        hand = playerVec.get(player).getHand();
+        ArrayList<JCheckBox> images = displayHand(hand);
+        for(int i = 0; i < images.size(); i++) {
+            DiceHand.add(images.get(i));
         }
 
         GameFrame.add(PlayerTurn);
         GameFrame.add(DiceHand);
-        // GameFrame.add(Options);
+        GameFrame.add(Options);
 
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GameFrame.setSize(1000,800);
@@ -78,16 +90,10 @@ public class Yahtzee {
             playerVec.add(new Player(playerNames[i], this.numDie, this.sideDie));
         }
     }
-    public ArrayList<JCheckBox> displayHand(int player) {
+    public ArrayList<JCheckBox> displayHand(ArrayList<Integer> hand) {
         ArrayList<JCheckBox> images = new ArrayList<JCheckBox>();
-        JCheckBox tmp;
-        int roll;
-        for(int i = 0; i < this.numDie; i++) {
-            roll = this.playerVec.get(player).getHand().get(i);
-            tmp = new JCheckBox(getImage(roll), false);
-            tmp.setBackground(Color.RED);
-            tmp.setOpaque(false);
-            images.add(i, tmp);
+        for(int i = 0; i < hand.size(); i++) {
+            images.add(i, new JCheckBox(getImage(hand.get(i))));
         }
         return images;
     }
@@ -98,7 +104,7 @@ public class Yahtzee {
         }
         return selections;
     }
-                /***
+    /***
     gets the image of the die that goes with the number rolled 
     *
     * @param integer of the number rolled

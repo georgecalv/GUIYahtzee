@@ -1,6 +1,6 @@
 import java.util.*;
-import javax.swing.*;
-import java.awt.Image;
+// import javax.swing.*;
+// import java.awt.Image;
 
 public class Player {
     // has name score and turns maybe
