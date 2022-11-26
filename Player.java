@@ -19,6 +19,9 @@ public class Player {
         dice = new Die(this.sideDie);
         this.rolls = new ArrayList<Integer>();
     }
+    public Die getDie() {
+        return this.dice;
+    }
 
     /**
     Rolls all five dice and adds it to the games rolls array list

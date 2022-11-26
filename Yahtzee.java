@@ -11,8 +11,10 @@ public class Yahtzee {
     private int numPlayers;
     private String[] playerNames;
     private Vector<Player> playerVec;
+    private ArrayList<Integer> hand;
     private Score score;
     private Die die;
+    private int player;
 
     public Yahtzee(int numDie, int numTurns, int sideDie, int numPlayers, String[] playerNames) {
         this.numDie = numDie;
@@ -23,6 +25,7 @@ public class Yahtzee {
         this.score = new Score(this.numDie, this.sideDie);
         this.die = new Die(this.sideDie);
         this.playerVec = new Vector<Player>();
+        this.player = 0;
         this.createPlayers();
     }
     // runs game
@@ -40,16 +43,15 @@ public class Yahtzee {
         JPanel DiceHand = new JPanel(new FlowLayout());
 
         
-        ArrayList<Integer> hand;
-        int player = 0;
-        while(player < this.numPlayers) {
+        
+        // while(player < this.numPlayers) {
             JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
             playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
             PlayerTurn.add(playerDisplay);
             // roll player dice
             playerVec.get(player).rollDice();
-            hand = playerVec.get(player).getHand();
-            ArrayList<JCheckBox> images = displayHand(hand);
+            this.hand = playerVec.get(player).getHand();
+            ArrayList<JCheckBox> images = displayHand(this.hand);
             ArrayList<JCheckBox> selection = makeSelections();
             for(int i = 0; i < images.size(); i++) {
                 DiceHand.add(images.get(i));
@@ -57,9 +59,23 @@ public class Yahtzee {
             }
             // add buttons for re roll and display score card
             JButton reRoll = new JButton("Reroll");
+            reRoll.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Reroll button clicked");
+                    for(int j = 0; j < numDie; j++) {
+                        if(!selection.get(j).isSelected()) {
+                            hand.set(j, playerVec.get(player).getDie().rollDie());
+                            images.get(j).setIcon(getImage(hand.get(j)));
+                        }
+                    }
+                    DiceHand.revalidate();
+                    DiceHand.repaint();
+                }
+            });
+            Options.add(reRoll);
 
-            player++;
-        }
+        //     this.player++;
+        // }
 
         GameFrame.add(PlayerTurn);
         GameFrame.add(DiceHand);
