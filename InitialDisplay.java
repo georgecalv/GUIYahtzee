@@ -25,7 +25,6 @@ public class InitialDisplay {
 
 
         upper.add(yahtzee);
-
         // Get settings of game then call make players
         JButton start = new JButton("Start Game");
         start.addActionListener(new ActionListener() {
@@ -87,7 +86,6 @@ public class InitialDisplay {
             
             }
         });
-
         panel.add(start);
 
         startGameFrame.add(upper);
