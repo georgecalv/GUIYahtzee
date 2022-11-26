@@ -32,50 +32,40 @@ public class Yahtzee {
 
         // Frame settings
         JFrame GameFrame = new JFrame("Yahtzee");
-        GameFrame.setLayout(new GridLayout(3,0));
+        GameFrame.setLayout(new GridLayout(4,0));
         JPanel PlayerTurn = new JPanel(new FlowLayout());
         // JPanel DiceHand = new JPanel(new GridLayout(0, this.numDie));
+        JPanel Select = new JPanel(new FlowLayout());
         JPanel Options = new JPanel(new FlowLayout());
         JPanel DiceHand = new JPanel(new FlowLayout());
 
         
         ArrayList<Integer> hand;
         int player = 0;
-        // while(i < this.numPlayers){
-        //     JLabel playerDisplay = new JLabel(playerNames[i] + "'s Turn");
-        //     playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
-        //     PlayerTurn.add(playerDisplay);
-        //     // roll player dice
-        //     playerVec.get(i).rollDice();
-        //     // get hand
-        //     hand = playerVec.get(i).getHand();
-        //     // sort hand
-        //     // playerVec.get(i).sortRolls();
-        //     // display hand
-        //     ArrayList<JCheckBox> images = displayHand(i);
-        //     // ArrayList<JCheckBox> selection = makeSelections();
-        //     for(int j = 0; j < images.size(); j++) {
-        //         DiceHand.add(images.get(i));
-        //     }
-        //     // next player
-        //     i++;
+        while(player < this.numPlayers) {
+            JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
+            playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
+            PlayerTurn.add(playerDisplay);
+            // roll player dice
+            playerVec.get(player).rollDice();
+            hand = playerVec.get(player).getHand();
+            ArrayList<JCheckBox> images = displayHand(hand);
+            ArrayList<JCheckBox> selection = makeSelections();
+            for(int i = 0; i < images.size(); i++) {
+                DiceHand.add(images.get(i));
+                Select.add(selection.get(i));
+            }
+            // add buttons for re roll and display score card
+            JButton reRoll = new JButton("Reroll");
 
-        // }
-
-        JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
-        playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
-        PlayerTurn.add(playerDisplay);
-        // roll player dice
-        playerVec.get(player).rollDice();
-        hand = playerVec.get(player).getHand();
-        ArrayList<JCheckBox> images = displayHand(hand);
-        for(int i = 0; i < images.size(); i++) {
-            DiceHand.add(images.get(i));
+            player++;
         }
 
         GameFrame.add(PlayerTurn);
         GameFrame.add(DiceHand);
+        GameFrame.add(Select);
         GameFrame.add(Options);
+
 
         GameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GameFrame.setSize(1000,800);
