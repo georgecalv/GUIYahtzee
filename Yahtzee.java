@@ -36,7 +36,7 @@ public class Yahtzee {
         JPanel PlayerTurn = new JPanel(new FlowLayout());
         // JPanel DiceHand = new JPanel(new GridLayout(0, this.numDie));
         JPanel Options = new JPanel(new FlowLayout());
-        JPanel DiceHand = new JPanel(new FlowLayout());
+        JPanel DiceHand = new JPanel();
 
         
         ArrayList<Integer> hand;
