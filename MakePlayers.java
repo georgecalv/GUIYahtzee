@@ -52,7 +52,7 @@ public class MakePlayers {
         PlayerFrame.add(scrollPane);
         PlayerFrame.add(buttonP);
         PlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PlayerFrame.setSize(500,200);
+        PlayerFrame.setSize(500,500);
         PlayerFrame.setLocationRelativeTo(null);
         PlayerFrame.setResizable(false);
         PlayerFrame.setVisible(true);  
