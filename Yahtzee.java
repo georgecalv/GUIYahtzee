@@ -11,8 +11,10 @@ public class Yahtzee {
     private int numPlayers;
     private String[] playerNames;
     private Vector<Player> playerVec;
+
     private ArrayList<Integer> hand;
     private Score score;
+
     private Die die;
     private int player;
     // private JFrame GameFrame;
@@ -22,12 +24,13 @@ public class Yahtzee {
     // private JPanel DiceHand;
 
     public Yahtzee(int numDie, int numTurns, int sideDie, int numPlayers, String[] playerNames) {
+
         this.numDie = numDie;
         this.numTurns = numTurns;
         this.sideDie = sideDie;
         this.numPlayers = numPlayers;
         this.playerNames = playerNames;
-        this.score = new Score(this.numDie, this.sideDie);
+
         this.die = new Die(this.sideDie);
         this.playerVec = new Vector<Player>();
         this.player = 0;
@@ -41,6 +44,7 @@ public class Yahtzee {
     }
     // runs game
     public void playGame() {
+
         // loop for each player until they want to end the game or all lines are gone
         // another loop for how many rolls per player
 
