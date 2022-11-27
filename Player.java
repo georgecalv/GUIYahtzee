@@ -1,240 +1,130 @@
-import java.awt.Color;
-import java.util.ArrayList;
+import java.util.*;
 import javax.swing.*;
-import java.awt.event.*;
+// import java.awt.Image;
 
-/*
- * UserScore CLASS:
- * 
- * The UserScore's main purpose is to keep track of the Yahtzee player's score throughout multiple
- * rounds of rolling. It holds the values of each scoring line, and it keeps track of whether the
- * score has been used or not. Lastly, it displays a scorecard for the player to track in between
- * rolls and rounds.
- */
 public class Player {
-
-    //Total scores for player
-    public int upper_total, lower_total, sub_total, bonus, grand_total = 0;
-
-    //Lower scoring for player
-    public int score_3K, score_4K, score_FH, score_SS, score_LS, score_Y = 0;
-    public boolean used_3K, used_4K, used_FH, used_SS, used_LS, used_Y = false;
-
-    //Dice attributes for upper scoring
-    public int num_sides, num_dice;
-    public ArrayList<Integer> upper_scores;
-    public ArrayList<Integer> upper_used;
-
-    // GUI components to display scorecard
-    private JFrame frame;
-    private JTextArea score_area;
-    private JPanel score_panel;
-    private JButton score_button;
-    private String scorecard;
-
+    // has name score and turns maybe
+    private int numDie;
+    private int sideDie;
     private ScoreCard card;
     private String name;
+    private ArrayList<Integer> rolls;
+    private Die dice;
+    private int GrandTotal;
+    private int[] scoresUsed;
+    private ArrayList<String> userPicks;
+    private String[] lowerNames = {"3K", "4K", "FH", "LS", "SS", "Y", "CH"};
+    private int totalHigherScores;
     
-    /*
-    * UserScore constructor used to set up the upper scoring ArrayLists.
-    * Upper scoring is based on number of sides on the dice, so it is subject
-    * to change from game to game.
-    *
-    * @param sides: int of number of sides on this game's dice
-    */
-    Player(String name, int dice, int sides){
 
-        this.num_sides = sides;
-        this.num_dice = dice;
-        this.upper_scores = new ArrayList<Integer>();
-        this.upper_used = new ArrayList<Integer>();
-
-        //Load the score array with zeroes until changed
-        //Load the used array with -1 until line is used for checking
-        for (int i = 0; i < num_sides; i++){
-            this.upper_scores.add(i, 0);
-            this.upper_used.add(i, -1);
-        }
-
-        card = new ScoreCard(num_dice, num_sides);
+    public Player(String name, int numDie, int sideDie) {
+        this.name = name;
+        this.numDie = numDie;
+        this.sideDie = sideDie;
+        card = new ScoreCard(numDie, sideDie);
+        dice = new Die(this.sideDie);
+        this.rolls = new ArrayList<Integer>();
+        this.scoresUsed = new int[this.sideDie + 7];
+        this.GrandTotal = 0;
+        this.GrandTotal = 0;
+        this.userPicks = new ArrayList<String>();
+        this.totalHigherScores = 0;
+    }
+    public Die getDie() {
+        return this.dice;
     }
 
-    /*
-    * Dynamically creates a current user scoreboard frame. This is done using
-    * the variables that in this object that hold all the integer values, printing
-    * them in a JTextArea().
+    /**
+    Rolls all five dice and adds it to the games rolls array list
+    *
+    * @param none
+    * @return none
     */
-    public void displayPlayerScore(){
-
-        // Create a new frame and panel to put the JTextArea and JButton on
-        frame = new JFrame();
-        score_panel = new JPanel();
-
-        // Start appending scorecard string with scorecard that originally printed to terminal
-        scorecard = ("------------------------------\n" +
-                     "USER SCORECARD                \n" + 
-                     "------------------------------\n" +
-                     "Line                                          Score  \n" +
-                     "------------------------------\n");
-
-        //Upper Scorecard Counts
-        sub_total = 0;
-
-        //Print out each possible scoring line, depending on number of sides
-        for (int die_val = 1; die_val <= num_sides; die_val++){
-            
-            scorecard += die_val + "                                                  " + upper_scores.get(die_val - 1) + "\n";
-            sub_total += upper_scores.get(die_val - 1);
+    public void rollDice() {
+        for(int i = 0; i < this.numDie; i++) {
+            this.rolls.add(this.dice.rollDie());
         }
-
-        //Check for bonus in upper scoring and set upper total
-        if (sub_total >= 63)
-            bonus = 35;
-        
-        upper_total = sub_total + bonus;
-
-        scorecard += "------------------------------\n" +
-                     "Sub Total                                     " + sub_total + "\n" +
-                     "Bonus                                          " + bonus + "\n" +
-                     "------------------------------\n" +
-                     "Upper Total                                  " + upper_total + "\n";
-
-        // Lower Scorecard Counts
-        //Set totals based on changes to certain lines in the lower scorecard
-        lower_total = score_3K + score_4K + score_FH + score_SS + score_LS + score_Y;
-        grand_total = lower_total + upper_total;
-
-        scorecard += "------------------------------\n" +
-                     "3K                                                " + score_3K + "\n" +
-                     "4K                                                " + score_4K + "\n" +
-                     "FH                                               " + score_FH + "\n" +
-                     "SS                                                " + score_SS + "\n" +
-                     "LS                                                " + score_LS + "\n" +
-                     "Y                                                 " + score_Y + "\n" +
-                     "------------------------------\n" +
-                     "Lower Total                                 " + lower_total + " \n" +
-                     "------------------------------\n" +
-                     "Grand Total                                 " + grand_total + "\n" +
-                     "------------------------------\n";
-
-        // Create a JTextArea to hold the scorecard string, make it uneditable to user
-        score_area = new JTextArea(scorecard);
-        score_area.setEditable(false);
-        score_panel.add(score_area);
-
-        // Create a JButton that closes the window of the scorecard but not the whole program
-        score_button = new JButton("Close Scorecard");
-        score_button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Close window
-                frame.dispose();
+    } 
+    public ArrayList<Integer> getHand() {
+        return this.rolls;
+    }
+    /**
+    Sorts the rolls array list in increasing order then prints out the sorted list
+    *
+    * @param none
+    * @return none
+    */
+    public void sortRolls() {
+        int temp;
+        // sorting rolls
+        for(int i = 0; i < rolls.size() - 1; i++) {
+            for(int j = i + 1; j < rolls.size(); j++) {
+                // swap
+                if(rolls.get(i) > rolls.get(j)) {
+                    temp = rolls.get(i);
+                    rolls.set(i,rolls.get(j));
+                    rolls.set(j,temp);
+                }
             }
-        });  
-        score_panel.add(score_button);
-
-        // Add scoreboard and button to frame and set frame colors/size
-        frame.add(score_panel);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(300, 575);
-        frame.getContentPane().setBackground(Color.WHITE);
-        frame.setVisible(true);
-    }
-
-    /*
-    * Sets the 3 of a Kind scoring line to a certain score. It also
-    * alters its used boolean so that it can't be changed again during this game.
-    *
-    * @param value: int of new score to set for line
-    */
-    public void set3K(int value){
-
-        this.score_3K = value;
-        this.used_3K = true;
-    }
-
-    /*
-    * Sets the 4 of a Kind scoring line to a certain score. It also
-    * alters its used boolean so that it can't be changed again during this game.
-    *
-    * @param value: int of new score to set for line
-    */
-    public void set4K(int value){
-        
-        this.score_4K = value;
-        this.used_4K = true;
-    }
-
-    /*
-    * Sets the Full House scoring line to a certain score. It also
-    * alters its used boolean so that it can't be changed again during this game.
-    *
-    * @param value: int of new score to set for line
-    */
-    public void setFH(int value){
-        
-        this.score_FH = value;
-        this.used_FH = true;
-    }
-
-    /*
-    * Sets the Small Straight scoring line to a certain score. It also
-    * alters its used boolean so that it can't be changed again during this game.
-    *
-    * @param value: int of new score to set for line
-    */
-    public void setSS(int value){
-        
-        this.score_SS = value;
-        this.used_SS = true;
-    }
-
-    /*
-    * Sets the Large Straight scoring line to a certain score. It also
-    * alters its used boolean so that it can't be changed again during this game.
-    *
-    * @param value: int of new score to set for line
-    */
-    public void setLS(int value){
-        
-        this.score_LS = value;
-        this.used_LS = true;
-    }
-
-    /*
-    * Sets the Yahtzee scoring line to a certain score. It also
-    * alters its used boolean so that it can't be changed again during this game.
-    *
-    * @param value: int of new score to set for line
-    */
-    public void setY(int value){
-        
-        this.score_Y = value;
-        this.used_Y = true;
-    }
-
-    /*
-    * Checks if the scorecard card is completely full. If that is the case, the
-    * game needs to move to the end game frame and close the roll turn frame.
-    *
-    * @return: boolean of whether every score line is filled or not
-    */
-    public boolean checkFullScorecard(){
-
-        // Check lower scorecard values
-        if (used_3K && used_4K && used_FH && used_SS && used_LS && used_Y){
-
-            // Check upper scorecard values, depending on number of sides
-            int count = 0;
-            for (int i = 0; i < num_sides; i++){
-                
-                if (upper_used.get(i) == 0)
-                    count++;
-            }
-            if (count == num_sides)
-                return true;
         }
-        return false;
     }
+    public void displayScoreCard() {
+        JFrame frame = new JFrame();
+        JPanel listPane = new JPanel();
+        listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+
+        ArrayList<String> result = new ArrayList<String>(); 
+        result.add("Line\t\tScore");
+        result.add("=====================");
+        result.add("Upper Section");
+        result.add("=====================");
+        for(int i = 1; i <= this.sideDie; i++) {
+            result.add(i + "'s\t\t " + this.scoresUsed[i - 1]);
+        }
+        result.add("=====================");
+        result.add("Lower Section");
+        result.add("=====================");
+        for(int j = this.sideDie; j < this.sideDie + 7; j++) {
+            result.add(this.lowerNames[j - this.sideDie] + " \t\t" + this.scoresUsed[j]);
+        }
+        result.add("=====================");
+        result.add("Grand Total\t " + this.GrandTotal);
+        
+        for(int k = 0; k < result.size(); k++) {
+            listPane.add(new JLabel(result.get(k)));
+        }
+        frame.add(listPane);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200,400);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);  
+    }
+        /**
+    getScoreCard
+    *
+    * @param Score object that has calulated the score for the roll of die
+    * @return ArrayList<JRadioButton> the choices that a user can choose
+    */
+    public ArrayList<JRadioButton> getScoreCard(Score score) {
+        ArrayList<JRadioButton> buttons = new ArrayList<JRadioButton>();
+        JRadioButton tmp;
+        int lines[] = score.getHigherScores();
+        int lowerScores[] = score.getLowerScores();
+        JRadioButton zero = new JRadioButton("0 line", false);
+        zero.setName("0");
+        buttons.add(0, zero);
+        for(int i = 1; i <= this.sideDie; i++) {
+            tmp = new JRadioButton("" + i + " line: " + lines[i - 1], false);
+            tmp.setName("" + i);
+            buttons.add(i, tmp);
+        }
+        for(int j = 0; j < 7; j++) {
+            tmp = new JRadioButton(lowerNames[j] + ": " + lowerScores[j], false);
+            tmp.setName(lowerNames[j]);
+            buttons.add(this.sideDie + j, tmp);
+        }
+        return buttons;
+    }
+
 }
