@@ -78,14 +78,10 @@ public class MakePlayers {
 
         PlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        PlayerFrame.setSize(500,500);
-
         PlayerFrame.setSize(1200,800);
-        PlayerFrame.setSize(500,200);
 
         PlayerFrame.setLocationRelativeTo(null);
         PlayerFrame.setResizable(false);
         PlayerFrame.setVisible(true);  
     }
-
 }
