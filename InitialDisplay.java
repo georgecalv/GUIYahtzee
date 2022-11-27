@@ -23,7 +23,6 @@ public class InitialDisplay {
         JLabel yahtzee = new JLabel();
         yahtzee.setIcon(new ImageIcon("images/Yahtzee.jpg"));
 
-        upper.add(yahtzee);
         imageP.add(yahtzee);
 
         // Get settings of game then call make players
@@ -105,11 +104,10 @@ public class InitialDisplay {
                 configP.repaint();
                 configP.revalidate(); 
             }
+        });
 
-        panel.add(start);
-
-        startGameFrame.add(upper);
-        startGameFrame.add(panel);
+        startGameFrame.add(imageP);
+        startGameFrame.add(configP);
         
         configP.add(start, BorderLayout.PAGE_END);
 
