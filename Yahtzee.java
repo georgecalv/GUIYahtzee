@@ -14,7 +14,6 @@ public class Yahtzee {
 
     private ArrayList<Integer> hand;
     private Score score;
-
     private Die die;
     private int player;
     // private JFrame GameFrame;
@@ -32,6 +31,7 @@ public class Yahtzee {
         this.playerNames = playerNames;
 
         this.die = new Die(this.sideDie);
+        this.score = new Score(this.sideDie, this.numDie);
         this.playerVec = new Vector<Player>();
         this.player = 0;
         this.createPlayers();
@@ -90,8 +90,22 @@ public class Yahtzee {
                 // turn ended
                 else {
                     playerVec.get(player).sortRolls();
-                    // score.checkRolls(hand);
-                    // ArrayList<JRadioButton> choices = playerVec.get(player).getScoreCard(score);
+                    score.checkRolls(hand);
+                    ButtonGroup bg = new ButtonGroup();
+                    ArrayList<JRadioButton> choices = playerVec.get(player).getScoreCard(score);
+
+                    GameFrame.remove(Options);
+                    JPanel p = new JPanel();
+                    for(int k = 0; k < choices.size(); k++) {
+                        bg.add(choices.get(k));
+                        p.add(choices.get(k));
+                    }
+                   
+                    GameFrame.add(p);
+                    GameFrame.repaint();
+                    GameFrame.revalidate();
+
+                    // check if should go to next player or end the entire game
                     System.out.println("end turn");
                     if(player == numPlayers - 1) {
                         player = 0;
@@ -99,11 +113,11 @@ public class Yahtzee {
                     else {
                         player++;
                     }
-                    hand.clear();
-                    images.clear();
-                    selection.clear();
-                    GameFrame.dispose();
-                    playGame();
+                    // hand.clear();
+                    // images.clear();
+                    // selection.clear();
+                    // GameFrame.dispose();
+                    // playGame();
 
                 }
             }
