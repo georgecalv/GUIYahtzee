@@ -6,7 +6,7 @@ public class Player {
     // has name score and turns maybe
     private int numDie;
     private int sideDie;
-    private ScoreCard card;
+    // private ScoreCard card;
     private String name;
     private ArrayList<Integer> rolls;
     private Die dice;
@@ -21,7 +21,7 @@ public class Player {
         this.name = name;
         this.numDie = numDie;
         this.sideDie = sideDie;
-        card = new ScoreCard(numDie, sideDie);
+        // card = new ScoreCard(numDie, sideDie);
         dice = new Die(this.sideDie);
         this.rolls = new ArrayList<Integer>();
         this.scoresUsed = new int[this.sideDie + 7];
@@ -30,6 +30,16 @@ public class Player {
         this.userPicks = new ArrayList<String>();
         this.totalHigherScores = 0;
     }
+    public int getTotalHigherScores() {
+        return this.totalHigherScores;
+    }
+    // public ScoreCard getScoreCard() {
+    //     return this.card;
+    // }
+    public String getName() {
+        return this.name;
+    }
+
     public Die getDie() {
         return this.dice;
     }
@@ -69,7 +79,7 @@ public class Player {
         }
     }
     public JPanel displayScoreCard() {
-        JFrame frame = new JFrame();
+        // JFrame frame = new JFrame();
         JPanel listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 
@@ -202,7 +212,8 @@ public class Player {
         try {
             int intValue = Integer.parseInt(s);
             return true;
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) {
             e.getStackTrace();
             return false;
         }
@@ -267,7 +278,14 @@ public class Player {
         for(int i = 0; i < this.sideDie + 7; i++) {
             this.scoresUsed[i] = 0;
         }
-
     }
+    public boolean checkFullScoreCard() {
+        // OMFG CONSTANT TIME HOLY FUCK SHIT BALLS 
+        if(this.userPicks.size() == this.sideDie + 8) {
+            return true;
+        }
+        return false;
+    }
+
 
 }

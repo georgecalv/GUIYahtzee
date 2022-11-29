@@ -2,10 +2,10 @@ import java.awt.event.*;
 import java.util.Vector;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
+// import javax.swing.plaf.FontUIResource;
 
 import java.awt.*;
-import java.util.*;
+// import java.util.*;
 
 public class MakePlayers {
     // asks for player names and creates each object along with their scorecards
