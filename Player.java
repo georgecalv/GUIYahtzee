@@ -202,7 +202,24 @@ public class Player {
             this.GrandTotal += total;
         }
     }
-        /**
+    /**
+    getBonuses
+    *
+    * @param Score object 
+    * @return caculated bonus from the of scores based on the final score
+    */
+    public int getBonuses(Score score) {
+        int bonus = 0;
+        if(this.totalHigherScores >= 63) {
+            bonus += 35;
+        }
+        if(score.getNumYahtzee() > 1) {
+            bonus += 100;
+        }
+        this.GrandTotal += bonus;
+        return bonus;
+    }
+    /**
     checks if a string is an integer
     *
     * @param string of tthe potential number
