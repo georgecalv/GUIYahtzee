@@ -16,11 +16,6 @@ public class Yahtzee {
     private Score score;
     private Die die;
     private int player;
-    // private JFrame GameFrame;
-    // private JPanel PlayerTurn;
-    // private JPanel Select;
-    // private JPanel Options;
-    // private JPanel DiceHand;
 
     public Yahtzee(int numDie, int numTurns, int sideDie, int numPlayers, String[] playerNames) {
 
@@ -35,12 +30,6 @@ public class Yahtzee {
         this.playerVec = new Vector<Player>();
         this.player = 0;
         this.createPlayers();
-        // this.GameFrame = new JFrame("Yahtzee");
-        // this.GameFrame.setLayout(new GridLayout(4,0));
-        // this.PlayerTurn = new JPanel(new FlowLayout());
-        // this.Select = new JPanel(new FlowLayout());
-        // this.Options = new JPanel(new FlowLayout());
-        // this.DiceHand = new JPanel(new FlowLayout());
     }
     // runs game
     public void playGame() {
