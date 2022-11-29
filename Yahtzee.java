@@ -100,24 +100,54 @@ public class Yahtzee {
                         bg.add(choices.get(k));
                         p.add(choices.get(k));
                     }
-                   
+                    // button 
+                    JButton addScore = new JButton("Add Score");
+                    addScore.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            System.out.println("Added Score");
+                            for(int j = 0; j < choices.size(); j++) {
+                                if(choices.get(j).isSelected()) {
+                                    playerVec.get(player).addScore(choices.get(j).getName(), score);
+                                    GameFrame.dispose();
+                                    JFrame frame = new JFrame("End of Turn");
+                                    JPanel panel = new JPanel();
+                                    panel.add(playerVec.get(player).displayScoreCard());
+                                    panel.add(DiceHand);
+                                    JButton endTurn = new JButton("End Turn");
+                                    endTurn.addActionListener(new ActionListener() {
+                                        public void actionPerformed(ActionEvent e) {
+                                            score.resetScores();
+                                            hand.clear();
+                                            // check if should go to next player or end the entire game
+                                            System.out.println("end turn");
+                                            if(player == numPlayers - 1) {
+                                                player = 0;
+                                            }
+                                            else {
+                                                player++;
+                                            }
+                                            hand.clear();
+                                            images.clear();
+                                            selection.clear();
+                                            frame.dispose();
+                                            playGame();   
+                                        } 
+                                    });
+                                    panel.add(endTurn);
+                                    frame.add(panel);
+                                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                    frame.setSize(1000,800);
+                                    frame.setLocationRelativeTo(null);
+                                    frame.setResizable(false);
+                                    frame.setVisible(true);
+                                }
+                            }
+                        }
+                    });
+                    p.add(addScore);
                     GameFrame.add(p);
                     GameFrame.repaint();
                     GameFrame.revalidate();
-
-                    // check if should go to next player or end the entire game
-                    System.out.println("end turn");
-                    if(player == numPlayers - 1) {
-                        player = 0;
-                    }
-                    else {
-                        player++;
-                    }
-                    // hand.clear();
-                    // images.clear();
-                    // selection.clear();
-                    // GameFrame.dispose();
-                    // playGame();
 
                 }
             }

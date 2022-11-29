@@ -68,7 +68,7 @@ public class Player {
             }
         }
     }
-    public void displayScoreCard() {
+    public JPanel displayScoreCard() {
         JFrame frame = new JFrame();
         JPanel listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
@@ -93,12 +93,13 @@ public class Player {
         for(int k = 0; k < result.size(); k++) {
             listPane.add(new JLabel(result.get(k)));
         }
-        frame.add(listPane);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(200,400);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);  
+        // frame.add(listPane);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setSize(200,400);
+        // frame.setLocationRelativeTo(null);
+        // frame.setResizable(false);
+        // frame.setVisible(true);  
+        return listPane;
     }
         /**
     getScoreCard
@@ -125,6 +126,148 @@ public class Player {
             buttons.add(this.sideDie + j, tmp);
         }
         return buttons;
+    }
+        /**
+    takes in string of response to what socre the user wants and adds it to their score
+    *
+    * @param String of the response and then the score object containg the scores calc for their roll
+    * @return score added to users scores
+    */
+    public void addScore(String response, Score score) {
+        int lines[] = score.getHigherScores();
+        int lowerScores[] = score.getLowerScores();
+        // integer which means it is higher scorecard
+        if(this.testInt(response)) {
+            if(Integer.parseInt(response) == 0) {
+                this.userPicks.add("0");
+            }
+            // add line
+            else {
+                scoresUsed[Integer.parseInt(response) - 1] += lines[Integer.parseInt(response) - 1];
+                this.GrandTotal += lines[Integer.parseInt(response) - 1];
+                this.totalHigherScores += lines[Integer.parseInt(response) - 1];
+                this.userPicks.add(response);
+            }
+        }
+        // lower score card
+        else {
+            int total = 0;
+            switch(response.toUpperCase()) {
+                case "3K":
+                    scoresUsed[this.sideDie] += lowerScores[0];
+                    total = lowerScores[0];
+                    this.userPicks.add("3K");
+                    break;
+                case "4K":
+                    scoresUsed[this.sideDie + 1] += lowerScores[1];
+                    total = lowerScores[1];
+                    this.userPicks.add("4K");
+                    break;
+                case "FH":
+                    scoresUsed[this.sideDie + 2] += lowerScores[2];
+                    total = lowerScores[2];
+                    this.userPicks.add("FH");
+                    break;
+                case "LS":
+                    scoresUsed[this.sideDie + 3] += lowerScores[3];
+                    total = lowerScores[3];
+                    this.userPicks.add("LS");
+                    break;
+                case "SS":
+                    scoresUsed[this.sideDie + 4] += lowerScores[4];
+                    total = lowerScores[4];
+                    this.userPicks.add("SS");
+                    break;
+                case "Y":
+                    scoresUsed[this.sideDie + 5] += lowerScores[5];
+                    total = lowerScores[5];
+                    this.userPicks.add("Y");
+                    break;
+                case "CH":
+                    scoresUsed[this.sideDie + 6] += lowerScores[6];
+                    total = lowerScores[6];
+                    this.userPicks.add("CH");
+                    break;
+            }
+            this.GrandTotal += total;
+        }
+    }
+        /**
+    checks if a string is an integer
+    *
+    * @param string of tthe potential number
+    * @return bool of whether it is a number or not
+    */
+    private boolean testInt(String s) {
+        try {
+            int intValue = Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            e.getStackTrace();
+            return false;
+        }
+    }
+    /**
+    checks if the response has been used
+    *
+    * @param String of response
+    * @return checks if user inpurt was already used true if used
+    */
+    public boolean checkUsed(String response) {
+        if(this.userPicks.contains(response)) {
+            return true;
+        }
+        return false;
+    }
+    /**
+    getter for ScoresUsed
+    *
+    * @param nothing
+    * @return array of ints of what was used
+    */
+    public int[] getScoresUsed() {
+        return this.scoresUsed;
+    }
+    /**
+    getter for what the user has used
+    *
+    * @param nothing
+    * @return Arraylist of String with the user inputs accepted that the user has used
+    */
+    public ArrayList<String> getUserPicks() {
+        return this.userPicks;
+    }
+    /**
+    getter for Total
+    *
+    * @param nothing
+    * @return integer of the total score
+    */
+    public int getTotal() {
+        return this.GrandTotal;
+    }
+    /**
+    getter for sideDie
+    *
+    * @param nothing
+    * @return intger of the number of sides per die 
+    */
+    public int getSideDie() {
+        return this.sideDie;
+    }
+    /**
+    newGame
+    *
+    * @param nothing
+    * @return resets variables for a new game of yahtzee
+    */
+    public void newGame() {
+        this.GrandTotal = 0;
+        this.userPicks.clear();
+        for(int i = 0; i < this.sideDie + 7; i++) {
+            this.scoresUsed[i] = 0;
+        }
+
     }
 
 }
