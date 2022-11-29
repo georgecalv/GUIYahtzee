@@ -93,12 +93,13 @@ public class Yahtzee {
                     score.checkRolls(hand);
                     ButtonGroup bg = new ButtonGroup();
                     ArrayList<JRadioButton> choices = playerVec.get(player).getScoreCard(score);
-
                     GameFrame.remove(Options);
                     JPanel p = new JPanel();
                     for(int k = 0; k < choices.size(); k++) {
-                        bg.add(choices.get(k));
-                        p.add(choices.get(k));
+                        if(!playerVec.get(player).checkUsed(choices.get(k).getName())) {
+                            bg.add(choices.get(k));
+                            p.add(choices.get(k));
+                        }
                     }
                     // button 
                     JButton addScore = new JButton("Add Score");
