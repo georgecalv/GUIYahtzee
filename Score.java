@@ -1,3 +1,12 @@
+/**
+* This program is the Score object that calculates the score based on the dice rolled
+* CPSC 224-01, Fall 2022
+* lil' Yahtzee
+* No sources to cite.
+* 
+* @author George Calvert, Henry Stone, David Giacobbi
+* @version v1.0 11/29/22
+*/
 import java.util.ArrayList;
 public class Score {
     // variables

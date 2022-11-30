@@ -1,12 +1,18 @@
+/**
+* This program is the PLayer object that stores all info about a player and their score
+* CPSC 224-01, Fall 2022
+* lil' Yahtzee
+* No sources to cite.
+* 
+* @author George Calvert, Henry Stone, David Giacobbi
+* @version v1.0 11/29/22
+*/
 import java.util.*;
 import javax.swing.*;
-// import java.awt.Image;
 
 public class Player {
-    // has name score and turns maybe
     private int numDie;
     private int sideDie;
-    // private ScoreCard card;
     private String name;
     private ArrayList<Integer> rolls;
     private Die dice;
@@ -16,12 +22,14 @@ public class Player {
     private String[] lowerNames = {"3K", "4K", "FH", "LS", "SS", "Y", "CH"};
     private int totalHigherScores;
     
-
+    /*
+    Constructor for Player
+    * @return initializes all variables needed
+    */
     public Player(String name, int numDie, int sideDie) {
         this.name = name;
         this.numDie = numDie;
         this.sideDie = sideDie;
-        // card = new ScoreCard(numDie, sideDie);
         dice = new Die(this.sideDie);
         this.rolls = new ArrayList<Integer>();
         this.scoresUsed = new int[this.sideDie + 7];
@@ -30,16 +38,30 @@ public class Player {
         this.userPicks = new ArrayList<String>();
         this.totalHigherScores = 0;
     }
+    /**
+    getter for total higher scores
+    *
+    * @param nothing
+    * @return integer of total higher scores
+    */
     public int getTotalHigherScores() {
         return this.totalHigherScores;
     }
-    // public ScoreCard getScoreCard() {
-    //     return this.card;
-    // }
+    /**
+    gets Name of player
+    *
+    * @param nothing
+    * @return String of the players name
+    */
     public String getName() {
         return this.name;
     }
-
+    /**
+    getter for players die
+    *
+    * @param nothing
+    * @return gets die object
+    */
     public Die getDie() {
         return this.dice;
     }
@@ -55,6 +77,12 @@ public class Player {
             this.rolls.add(this.dice.rollDie());
         }
     } 
+    /**
+    getter for the dice hand
+    *
+    * @param nothing
+    * @return arraylist of integers with the dice rolled
+    */
     public ArrayList<Integer> getHand() {
         return this.rolls;
     }
@@ -78,11 +106,17 @@ public class Player {
             }
         }
     }
+    /**
+    displays the scorecard for the player
+    *
+    * @param nothing
+    * @return Jpanel containg the scorecard
+    */
     public JPanel displayScoreCard() {
-        // JFrame frame = new JFrame();
         JPanel listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 
+        // creating label
         ArrayList<String> result = new ArrayList<String>(); 
         result.add("Line\t\tScore");
         result.add("=====================");
@@ -99,19 +133,14 @@ public class Player {
         }
         result.add("=====================");
         result.add("Grand Total\t " + this.GrandTotal);
-        
+        // adding labels to panel
         for(int k = 0; k < result.size(); k++) {
             listPane.add(new JLabel(result.get(k)));
         }
-        // frame.add(listPane);
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.setSize(200,400);
-        // frame.setLocationRelativeTo(null);
-        // frame.setResizable(false);
-        // frame.setVisible(true);  
+        // return
         return listPane;
     }
-        /**
+    /**
     getScoreCard
     *
     * @param Score object that has calulated the score for the roll of die
@@ -296,8 +325,13 @@ public class Player {
             this.scoresUsed[i] = 0;
         }
     }
+    /**
+    Checks if the scorecard for this player is full
+    *
+    * @param nothing
+    * @return boolean true id the card is full in constant time may i add ;)
+    */
     public boolean checkFullScoreCard() {
-        // OMFG CONSTANT TIME HOLY FUCK SHIT BALLS 
         if(this.userPicks.size() == this.sideDie + 8) {
             return true;
         }
