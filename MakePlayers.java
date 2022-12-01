@@ -97,6 +97,7 @@ public class MakePlayers {
         PlayerFrame.add(buttonP, BorderLayout.PAGE_END);
 
         // frame settings
+        PlayerFrame.getContentPane().setBackground(Color.GREEN);
         PlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PlayerFrame.setSize(1200,800);
         PlayerFrame.setLocationRelativeTo(null);
