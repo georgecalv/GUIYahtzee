@@ -61,12 +61,22 @@ public class Yahtzee {
             // Frame settings
             JFrame GameFrame = new JFrame("Yahtzee");
             GameFrame.setLayout(new GridLayout(4,0));
+
             JPanel PlayerTurn = new JPanel(new FlowLayout());
+            PlayerTurn.setBackground(new Color(184, 184, 184));
+
             JPanel Select = new JPanel(new FlowLayout());
+            Select.setBackground(new Color(184, 184, 184));
+
             JPanel Options = new JPanel(new FlowLayout());
+            Options.setBackground(new Color(184, 184, 184));
+
             JPanel DiceHand = new JPanel(new FlowLayout());
+            DiceHand.setBackground(new Color(184, 184, 184));
+
             JLabel playerDisplay = new JLabel(playerNames[player] + "'s Turn");
-            playerDisplay.setFont(new Font("Serif", Font.PLAIN, 26));
+            playerDisplay.setFont(new Font("Copperplate", Font.PLAIN, 48));
+            playerDisplay.setForeground(Color.red);
             PlayerTurn.add(playerDisplay);
 
             // roll player dice
@@ -82,6 +92,8 @@ public class Yahtzee {
             }
             // add buttons for re roll and display score card
             JButton reRoll = new JButton("Reroll");
+            reRoll.setFont(new Font("Britannic Bold", Font.BOLD, 30));
+            reRoll.setPreferredSize(new Dimension(300, 100));
             reRoll.addActionListener(new ActionListener() {
                 int turn = 0;
                 public void actionPerformed(ActionEvent e) {
@@ -136,8 +148,10 @@ public class Yahtzee {
                         ArrayList<JRadioButton> choices = playerVec.get(player).getScoreCard(score);
                         // remove the button at bottom of GUI
                         GameFrame.remove(Options);
+                        GameFrame.remove(Select);
                         // add radio button to panel and then frame
                         JPanel p = new JPanel();
+                        p.setBackground(new Color(184, 184, 184));
                         for(int k = 0; k < choices.size(); k++) {
                             // check if scoring line for player was already used
                             if(!playerVec.get(player).checkUsed(choices.get(k).getName())) {
@@ -146,7 +160,11 @@ public class Yahtzee {
                             }
                         }
                         // Add score to score card button
+                        JPanel addScoreP = new JPanel();
+                        addScoreP.setBackground(new Color(184, 184, 184));
                         JButton addScore = new JButton("Add Score");
+                        addScore.setFont(new Font("Britannic Bold", Font.BOLD, 28));
+                        addScore.setPreferredSize(new Dimension(300, 100));
                         addScore.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 System.out.println("Added Score");
@@ -156,13 +174,18 @@ public class Yahtzee {
                                         // add score to score card
                                         playerVec.get(player).addScore(choices.get(j).getName(), score);
                                         GameFrame.dispose();
+
                                         JFrame frame = new JFrame("End of Turn");
                                         JPanel panel = new JPanel();
+                                        panel.setBackground(new Color(184, 184, 184));
+            
                                         // display scorecard
                                         panel.add(playerVec.get(player).displayScoreCard());
                                         panel.add(DiceHand);
                                         // add end turn button
                                         JButton endTurn = new JButton("End Turn");
+                                        endTurn.setPreferredSize(new Dimension(400, 100));
+                                        endTurn.setFont(new Font("Britannic Bold", Font.BOLD, 36));
                                         endTurn.addActionListener(new ActionListener() {
                                             public void actionPerformed(ActionEvent e) {
                                                 // reset score object
@@ -198,8 +221,9 @@ public class Yahtzee {
                             }
                         });
                         // add button and upate full gameframe
-                        p.add(addScore);
+                        addScoreP.add(addScore);
                         GameFrame.add(p);
+                        GameFrame.add(addScoreP);
                         GameFrame.repaint();
                         GameFrame.revalidate();
 
@@ -208,6 +232,8 @@ public class Yahtzee {
             });
             // button to display scorecard
             JButton dispScoreCard = new JButton("Display Score Card");
+            dispScoreCard.setFont(new Font("Britannic Bold", Font.BOLD, 24));
+            dispScoreCard.setPreferredSize(new Dimension(300, 100));
             dispScoreCard.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // add scorecard to new fraem and display it to user 
@@ -217,7 +243,7 @@ public class Yahtzee {
                     cardFrame.add(card);
                     // so it doenst stop full program
                     cardFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    cardFrame.setSize(200,500);
+                    cardFrame.setSize(250,500);
                     cardFrame.setLocationRelativeTo(GameFrame);
                     cardFrame.setResizable(false);
                     cardFrame.setVisible(true); 
