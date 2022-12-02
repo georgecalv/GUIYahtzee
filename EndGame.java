@@ -38,23 +38,20 @@ public class EndGame {
 
         JPanel imageP = new JPanel();
         imageP.setBackground(new Color(184, 184, 184));
-        JLabel yahtzee = new JLabel();
-        yahtzee.setIcon(new ImageIcon("images/GameOver.png"));
-
-        // has winner label
-        JPanel winner = new JPanel();
-        winner.setBackground(new Color(184, 184, 184));
-
-        // label for winner
-        JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
-        win.setFont(new Font("Copperplate", Font.PLAIN, 28));
-        win.setForeground(Color.red);
-        winner.add(win);
+        JLabel gameOver = new JLabel();
+        gameOver.setIcon(new ImageIcon("images/GameOver.png"));
+        imageP.add(gameOver);
 
         // create leaderboard 
         JPanel leaderboard = new JPanel();
         leaderboard.setBackground(new Color(184, 184, 184));
         leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
+
+        // label for winner
+        JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
+        win.setFont(new Font("Copperplate", Font.PLAIN, 28));
+        win.setForeground(Color.red);
+        leaderboard.add(win);
 
         JLabel tmp;
         for(int i = 0; i < this.playerVec.size(); i++) {
@@ -65,6 +62,8 @@ public class EndGame {
         }
 
         // play again button
+        JPanel buttonP = new JPanel();
+        buttonP.setBackground(new Color(184, 184, 184));
         JButton newGame = new JButton("Play Again?");
         newGame.setFont(new Font("Britannic Bold", Font.BOLD, 28));
         newGame.setPreferredSize(new Dimension(400, 100));
@@ -77,12 +76,12 @@ public class EndGame {
                 dp.Display();
             }
         });
+        buttonP.add(newGame);
 
         // add panels and button
         EndFrame.add(imageP, BorderLayout.PAGE_START);
-        EndFrame.add(winner, BorderLayout.CENTER);
         EndFrame.add(leaderboard, BorderLayout.CENTER);
-        EndFrame.add(newGame, BorderLayout.PAGE_END);
+        EndFrame.add(buttonP, BorderLayout.PAGE_END);
         
         // fraem settings
         EndFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
