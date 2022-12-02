@@ -33,15 +33,21 @@ public class EndGame {
         // sort so the winner is at the beginning of the array
         sortPlayerVec();
         // Frames and panels
-        JFrame Frame = new JFrame("End Game");
-        Frame.setLayout(new BoxLayout(Frame.getContentPane(), BoxLayout.PAGE_AXIS));
+        JFrame EndFrame = new JFrame("End Game");
+        EndFrame.setLayout(new BorderLayout());
+
+        JPanel imageP = new JPanel();
+        imageP.setBackground(new Color(184, 184, 184));
+        JLabel yahtzee = new JLabel();
+        yahtzee.setIcon(new ImageIcon("images/GameOver.png"));
+
         // has winner label
         JPanel winner = new JPanel();
         winner.setBackground(new Color(184, 184, 184));
         // has leaderboard
-        JPanel losers = new JPanel();
-        losers.setBackground(new Color(184, 184, 184));
-        losers.setLayout(new BoxLayout(losers, BoxLayout.PAGE_AXIS));
+        JPanel leaderboard = new JPanel();
+        leaderboard.setBackground(new Color(184, 184, 184));
+        leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
 
         // label for winner
         JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
@@ -55,7 +61,7 @@ public class EndGame {
             tmp = new JLabel((i + 1) + ". " + this.playerVec.get(i).getName() + " Score: " + this.playerVec.get(i).getTotal());
             tmp.setFont(new Font("Copperplate", Font.PLAIN, 26));
             tmp.setForeground(Color.white);
-            losers.add(tmp);
+            leaderboard.add(tmp);
         }
         // play again button
         JButton newGame = new JButton("Play Again?");
@@ -65,21 +71,22 @@ public class EndGame {
             public void actionPerformed(ActionEvent e) {
                 // starts new game of yahtzee
                 InitialDisplay dp = new InitialDisplay();
-                Frame.dispose();
+                EndFrame.dispose();
                 dp.Display();
             }
         });
         // add panels and button
-        Frame.add(winner);
-        Frame.add(losers);
-        Frame.add(newGame);
+        EndFrame.add(imageP, BorderLayout.PAGE_START);
+        EndFrame.add(winner, BorderLayout.CENTER);
+        EndFrame.add(leaderboard, BorderLayout.CENTER);
+        EndFrame.add(newGame, BorderLayout.PAGE_END);
         
         // fraem settings
-        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Frame.setSize(1000,800);
-        Frame.setLocationRelativeTo(null);
-        Frame.setResizable(false);
-        Frame.setVisible(true); 
+        EndFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        EndFrame.setSize(1000,800);
+        EndFrame.setLocationRelativeTo(null);
+        EndFrame.setResizable(false);
+        EndFrame.setVisible(true); 
 
     }
     /**
