@@ -16,10 +16,10 @@ public class InitialDisplay {
         startGameFrame.setLayout(new BorderLayout());
         
         JPanel imageP = new JPanel();
-        imageP.setBackground(Color.darkGray);
+        imageP.setBackground(new Color(184, 184, 184));
 
         JPanel configP = new JPanel();
-        configP.setBackground(Color.darkGray);
+        configP.setBackground(new Color(184, 184, 184));
 
         // image
         JLabel yahtzee = new JLabel();
@@ -29,7 +29,7 @@ public class InitialDisplay {
 
         // Get settings of game then call make players
         JButton start = new JButton("Start Game");
-        start.setFont(new Font("Arial", Font.BOLD, 30));
+        start.setFont(new Font("Britannic Bold", Font.BOLD, 30));
         start.setPreferredSize(new Dimension(600, 100));
 
         start.addActionListener(new ActionListener() {
@@ -42,14 +42,14 @@ public class InitialDisplay {
                 JLabel dieLbl = new JLabel("Number of Dice: ");
                 JLabel playerLbl = new JLabel("Number of Players: ");
 
-                sdLbl.setFont(new Font("Attribute", Font.PLAIN, 40));
-                sdLbl.setForeground(Color.red);
+                sdLbl.setFont(new Font("Copperplate", Font.PLAIN, 40));
+                sdLbl.setForeground(Color.white);
 
-                dieLbl.setFont(new Font("Attribute", Font.PLAIN, 40));
-                dieLbl.setForeground(Color.red);
+                dieLbl.setFont(new Font("Copperplate", Font.PLAIN, 40));
+                dieLbl.setForeground(Color.white);
 
-                playerLbl.setFont(new Font("Attribute", Font.PLAIN, 40));
-                playerLbl.setForeground(Color.red);
+                playerLbl.setFont(new Font("Copperplate", Font.PLAIN, 40));
+                playerLbl.setForeground(Color.white);
         
                 // sides and number of die options
                 String[] sides = {"6", "8", "12"};
@@ -86,7 +86,7 @@ public class InitialDisplay {
                 // ok button
                 JButton btn = new JButton("OK");
                 btn.setPreferredSize(new Dimension(400, 100));
-                btn.setFont(new Font("Arial", Font.BOLD, 30));
+                btn.setFont(new Font("Britannic Bold", Font.BOLD, 30));
                 btn.addActionListener(new ActionListener() {
                     // runs game based on user selections
                     public void actionPerformed(ActionEvent e) {
