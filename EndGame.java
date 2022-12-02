@@ -34,7 +34,7 @@ public class EndGame {
         sortPlayerVec();
         // Frames and panels
         JFrame EndFrame = new JFrame("End Game");
-        // EndFrame.setLayout(new BorderLayout());
+        EndFrame.setLayout(new BorderLayout());
 
         JPanel imageP = new JPanel();
         imageP.setBackground(new Color(184, 184, 184));
@@ -48,15 +48,14 @@ public class EndGame {
         leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
 
         // label for winner
-        JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
-        win.setFont(new Font("Copperplate", Font.PLAIN, 28));
-        win.setForeground(Color.red);
-        leaderboard.add(win);
+        JLabel title = new JLabel("Yahtzee Leaderboard");
+        title.setFont(new Font("Copperplate", Font.PLAIN, 58));
+        leaderboard.add(title);
 
         JLabel tmp;
         for(int i = 0; i < this.playerVec.size(); i++) {
             tmp = new JLabel((i + 1) + ". " + this.playerVec.get(i).getName() + " Score: " + this.playerVec.get(i).getTotal());
-            tmp.setFont(new Font("Copperplate", Font.PLAIN, 26));
+            tmp.setFont(new Font("Copperplate", Font.PLAIN, 40));
             tmp.setForeground(Color.white);
             leaderboard.add(tmp);
         }
@@ -64,7 +63,7 @@ public class EndGame {
         // play again button
         JPanel buttonP = new JPanel();
         buttonP.setBackground(new Color(184, 184, 184));
-        JButton newGame = new JButton("Play Again?");
+        JButton newGame = new JButton("Play Again");
         newGame.setFont(new Font("Britannic Bold", Font.BOLD, 28));
         newGame.setPreferredSize(new Dimension(400, 100));
 
