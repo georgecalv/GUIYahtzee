@@ -33,46 +33,62 @@ public class EndGame {
         // sort so the winner is at the beginning of the array
         sortPlayerVec();
         // Frames and panels
-        JFrame Frame = new JFrame("End Game");
-        // has winner label
-        JPanel winner = new JPanel();
-        // has leaderboard
-        JPanel losers = new JPanel();
-        losers.setLayout(new BoxLayout(losers, BoxLayout.PAGE_AXIS));
+        JFrame EndFrame = new JFrame("End Game");
+        // EndFrame.setLayout(new BorderLayout());
+
+        JPanel imageP = new JPanel();
+        imageP.setBackground(new Color(184, 184, 184));
+        JLabel gameOver = new JLabel();
+        gameOver.setIcon(new ImageIcon("images/GameOver.png"));
+        imageP.add(gameOver);
+
+        // create leaderboard 
+        JPanel leaderboard = new JPanel();
+        leaderboard.setBackground(new Color(184, 184, 184));
+        leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
 
         // label for winner
         JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
-        win.setFont(new Font("Serif", Font.PLAIN, 26));
-        winner.add(win);
+        win.setFont(new Font("Copperplate", Font.PLAIN, 28));
+        win.setForeground(Color.red);
+        leaderboard.add(win);
 
-        // create leaderboard 
         JLabel tmp;
         for(int i = 0; i < this.playerVec.size(); i++) {
             tmp = new JLabel((i + 1) + ". " + this.playerVec.get(i).getName() + " Score: " + this.playerVec.get(i).getTotal());
-            tmp.setFont(new Font("Serif", Font.PLAIN, 16));
-            losers.add(tmp);
+            tmp.setFont(new Font("Copperplate", Font.PLAIN, 26));
+            tmp.setForeground(Color.white);
+            leaderboard.add(tmp);
         }
+
         // play again button
+        JPanel buttonP = new JPanel();
+        buttonP.setBackground(new Color(184, 184, 184));
         JButton newGame = new JButton("Play Again?");
+        newGame.setFont(new Font("Britannic Bold", Font.BOLD, 28));
+        newGame.setPreferredSize(new Dimension(400, 100));
+
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // starts new game of yahtzee
                 InitialDisplay dp = new InitialDisplay();
-                Frame.dispose();
+                EndFrame.dispose();
                 dp.Display();
             }
         });
+        buttonP.add(newGame);
+
         // add panels and button
-        Frame.add(newGame);
-        Frame.add(winner);
-        Frame.add(losers);
+        EndFrame.add(imageP, BorderLayout.PAGE_START);
+        EndFrame.add(leaderboard, BorderLayout.CENTER);
+        EndFrame.add(buttonP, BorderLayout.PAGE_END);
         
         // fraem settings
-        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Frame.setSize(1000,800);
-        Frame.setLocationRelativeTo(null);
-        Frame.setResizable(false);
-        Frame.setVisible(true); 
+        EndFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        EndFrame.setSize(1000,800);
+        EndFrame.setLocationRelativeTo(null);
+        EndFrame.setResizable(false);
+        EndFrame.setVisible(true); 
 
     }
     /**

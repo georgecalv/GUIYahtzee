@@ -16,17 +16,20 @@ public class InitialDisplay {
         startGameFrame.setLayout(new BorderLayout());
         
         JPanel imageP = new JPanel();
+        imageP.setBackground(new Color(184, 184, 184));
+
         JPanel configP = new JPanel();
-        configP.setSize(400, 400);
+        configP.setBackground(new Color(184, 184, 184));
 
         // image
         JLabel yahtzee = new JLabel();
-        yahtzee.setIcon(new ImageIcon("images/Yahtzee.jpg"));
+        yahtzee.setIcon(new ImageIcon("images/Yahtzee.png"));
 
         imageP.add(yahtzee);
 
         // Get settings of game then call make players
         JButton start = new JButton("Start Game");
+        start.setFont(new Font("Britannic Bold", Font.BOLD, 30));
         start.setPreferredSize(new Dimension(600, 100));
 
         start.addActionListener(new ActionListener() {
@@ -37,11 +40,16 @@ public class InitialDisplay {
 
                 JLabel sdLbl = new JLabel("Number of Sides: ");
                 JLabel dieLbl = new JLabel("Number of Dice: ");
-                JLabel playerLbl = new JLabel("Number of Players");
+                JLabel playerLbl = new JLabel("Number of Players: ");
 
-                sdLbl.setFont(new Font("Attribute", Font.PLAIN, 30));
-                dieLbl.setFont(new Font("Attribute", Font.PLAIN, 30));
-                playerLbl.setFont(new Font("Attribute", Font.PLAIN, 30));
+                sdLbl.setFont(new Font("Copperplate", Font.PLAIN, 40));
+                sdLbl.setForeground(Color.white);
+
+                dieLbl.setFont(new Font("Copperplate", Font.PLAIN, 40));
+                dieLbl.setForeground(Color.white);
+
+                playerLbl.setFont(new Font("Copperplate", Font.PLAIN, 40));
+                playerLbl.setForeground(Color.white);
         
                 // sides and number of die options
                 String[] sides = {"6", "8", "12"};
@@ -72,11 +80,13 @@ public class InitialDisplay {
                 layout.add(box2);
                 layout.add(box3);
                 sd.setVisible(true);
+
                 configP.add(layout);
         
                 // ok button
                 JButton btn = new JButton("OK");
                 btn.setPreferredSize(new Dimension(400, 100));
+                btn.setFont(new Font("Britannic Bold", Font.BOLD, 30));
                 btn.addActionListener(new ActionListener() {
                     // runs game based on user selections
                     public void actionPerformed(ActionEvent e) {
@@ -99,15 +109,12 @@ public class InitialDisplay {
                         mp.getPlayers();
                     }
                 });
-                configP.add(btn);
 
+                configP.add(btn);
                 configP.repaint();
                 configP.revalidate(); 
             }
         });
-
-        startGameFrame.add(imageP);
-        startGameFrame.add(configP);
         
         configP.add(start, BorderLayout.PAGE_END);
 

@@ -43,29 +43,38 @@ public class MakePlayers {
         PlayerFrame.setLayout(new BorderLayout());
 
         JPanel textP = new JPanel();
+        textP.setBackground(new Color(184, 184, 184));
         textP.setLayout(new BoxLayout(textP, BoxLayout.PAGE_AXIS));
 
         JPanel buttonP = new JPanel();
+        buttonP.setBackground(new Color(184, 184, 184));
 
         // Dynamically create text boxes to enter player names in
         Vector<JTextField> textBoxes = new Vector<JTextField>();
         for(int i = 0; i < this.numPlayers; i++) {
 
             JPanel newPlayer = new JPanel();
+            newPlayer.setBackground(new Color(184, 184, 184));
             
             textBoxes.add(new JTextField());
 
             textBoxes.get(i).setEditable(true);
-            textBoxes.get(i).setFont(new Font("Cooper Black", Font.PLAIN, 30));
+            textBoxes.get(i).setFont(new Font("Britannic Bold", Font.PLAIN, 30));
             textBoxes.get(i).setColumns(30);
 
-            newPlayer.add(new JLabel("Player " + (i + 1)));
+            JLabel newLabel = new JLabel("Player " + (i + 1));
+            newLabel.setFont(new Font("Copperplate", Font.BOLD, 24));
+            newLabel.setForeground(Color.white);
+
+            newPlayer.add(newLabel);
             newPlayer.add(textBoxes.get(i));
             textP.add(newPlayer);
         }
 
         // button to start playing
         JButton play = new JButton("Play Game");
+
+        play.setFont(new Font("Britannic Bold", Font.BOLD, 42));
         play.setPreferredSize(new Dimension(600, 100));
 
         play.addActionListener(new ActionListener() {
@@ -87,8 +96,11 @@ public class MakePlayers {
 
         // labels
         JPanel titleP = new JPanel();
+        titleP.setBackground(new Color(184, 184, 184));
+
         JLabel enterPlayerNames = new JLabel("Enter Your Player Names:");
-        enterPlayerNames.setFont(new Font("Title", Font.BOLD, 56));
+        enterPlayerNames.setFont(new Font("Copperplate", Font.BOLD, 56));
+        enterPlayerNames.setForeground(Color.red);
         titleP.add(enterPlayerNames);
 
         // add panels

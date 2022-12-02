@@ -7,6 +7,7 @@
 * @author George Calvert, Henry Stone, David Giacobbi
 * @version v1.0 11/29/22
 */
+import java.awt.Color;
 import java.util.*;
 import javax.swing.*;
 
@@ -19,7 +20,7 @@ public class Player {
     private int GrandTotal;
     private int[] scoresUsed;
     private ArrayList<String> userPicks;
-    private String[] lowerNames = {"3K", "4K", "FH", "LS", "SS", "Y", "CH"};
+    private String[] lowerNames = {"Three of a Kind", "Four of a Kind", "Full House", "Large Straight", "Small Straight", "Yahtzee", "Chance"};
     private int totalHigherScores;
     
     /*
@@ -114,25 +115,26 @@ public class Player {
     */
     public JPanel displayScoreCard() {
         JPanel listPane = new JPanel();
+        listPane.setBackground(new Color(184, 184, 184));
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 
         // creating label
         ArrayList<String> result = new ArrayList<String>(); 
-        result.add("Line\t\tScore");
-        result.add("=====================");
+        result.add("YOUR CURRENT SCORECARD");
+        result.add("=================================");
         result.add("Upper Section");
-        result.add("=====================");
+        result.add("=================================");
         for(int i = 1; i <= this.sideDie; i++) {
-            result.add(i + "'s\t\t " + this.scoresUsed[i - 1]);
+            result.add(i + "'s:     " + this.scoresUsed[i - 1]);
         }
-        result.add("=====================");
+        result.add("=================================");
         result.add("Lower Section");
-        result.add("=====================");
+        result.add("=================================");
         for(int j = this.sideDie; j < this.sideDie + 7; j++) {
-            result.add(this.lowerNames[j - this.sideDie] + " \t\t" + this.scoresUsed[j]);
+            result.add(this.lowerNames[j - this.sideDie] + ":   " + this.scoresUsed[j]);
         }
-        result.add("=====================");
-        result.add("Grand Total\t " + this.GrandTotal);
+        result.add("=================================");
+        result.add("Grand Total:\t " + this.GrandTotal);
         // adding labels to panel
         for(int k = 0; k < result.size(); k++) {
             listPane.add(new JLabel(result.get(k)));
@@ -151,18 +153,18 @@ public class Player {
         JRadioButton tmp;
         int lines[] = score.getHigherScores();
         int lowerScores[] = score.getLowerScores();
-        JRadioButton zero = new JRadioButton("0 line", false);
+        JRadioButton zero = new JRadioButton("Skip Scoring this Turn", false);
         zero.setName("0");
         buttons.add(0, zero);
         for(int i = 1; i <= this.sideDie; i++) {
-            tmp = new JRadioButton("" + i + " line: " + lines[i - 1], false);
+            tmp = new JRadioButton("" + i + "-Side Line: " + lines[i - 1], false);
             tmp.setName("" + i);
             buttons.add(i, tmp);
         }
         for(int j = 0; j < 7; j++) {
             tmp = new JRadioButton(lowerNames[j] + ": " + lowerScores[j], false);
             tmp.setName(lowerNames[j]);
-            buttons.add(this.sideDie + j, tmp);
+            buttons.add(this.sideDie + (j + 1), tmp);
         }
         return buttons;
     }
@@ -191,41 +193,41 @@ public class Player {
         // lower score card
         else {
             int total = 0;
-            switch(response.toUpperCase()) {
-                case "3K":
+            switch(response) {
+                case "Three of a Kind":
                     scoresUsed[this.sideDie] += lowerScores[0];
                     total = lowerScores[0];
-                    this.userPicks.add("3K");
+                    this.userPicks.add("Three of a Kind");
                     break;
-                case "4K":
+                case "Four of a Kind":
                     scoresUsed[this.sideDie + 1] += lowerScores[1];
                     total = lowerScores[1];
-                    this.userPicks.add("4K");
+                    this.userPicks.add("Four of a Kind");
                     break;
-                case "FH":
+                case "Full House":
                     scoresUsed[this.sideDie + 2] += lowerScores[2];
                     total = lowerScores[2];
-                    this.userPicks.add("FH");
+                    this.userPicks.add("Full House");
                     break;
-                case "LS":
+                case "Large Straight":
                     scoresUsed[this.sideDie + 3] += lowerScores[3];
                     total = lowerScores[3];
-                    this.userPicks.add("LS");
+                    this.userPicks.add("Large Straight");
                     break;
-                case "SS":
+                case "Small Straight":
                     scoresUsed[this.sideDie + 4] += lowerScores[4];
                     total = lowerScores[4];
-                    this.userPicks.add("SS");
+                    this.userPicks.add("Small Straight");
                     break;
-                case "Y":
+                case "Yahtzee":
                     scoresUsed[this.sideDie + 5] += lowerScores[5];
                     total = lowerScores[5];
                     this.userPicks.add("Y");
                     break;
-                case "CH":
+                case "Chance":
                     scoresUsed[this.sideDie + 6] += lowerScores[6];
                     total = lowerScores[6];
-                    this.userPicks.add("CH");
+                    this.userPicks.add("Chance");
                     break;
             }
             this.GrandTotal += total;
