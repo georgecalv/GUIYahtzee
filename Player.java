@@ -222,7 +222,7 @@ public class Player {
                 case "Yahtzee":
                     scoresUsed[this.sideDie + 5] += lowerScores[5];
                     total = lowerScores[5];
-                    this.userPicks.add("Y");
+                    this.userPicks.add("Yahtzee");
                     break;
                 case "Chance":
                     scoresUsed[this.sideDie + 6] += lowerScores[6];

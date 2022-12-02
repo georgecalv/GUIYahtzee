@@ -121,25 +121,25 @@ public class Yahtzee {
                     // turn ended
                     else {
                         // check if there is a full scorecard
-                        if(playerVec.get(player).checkFullScoreCard()) {
-                            // reset score checking for next player
-                            score.resetScores();
-                            // check if should go to next player or end the entire game
-                            System.out.println("end turn");
-                            // go to next player
-                            if(player == numPlayers - 1) {
-                                player = 0;
-                            }
-                            else {
-                                player++;
-                            }
-                            // reset things for next player
-                            hand.clear();
-                            images.clear();
-                            selection.clear();
-                            GameFrame.dispose();
-                            playGame(); 
-                        }
+                        // if(playerVec.get(player).checkFullScoreCard()) {
+                        //     // reset score checking for next player
+                        //     score.resetScores();
+                        //     // check if should go to next player or end the entire game
+                        //     System.out.println("end turn");
+                        //     // go to next player
+                        //     if(player == numPlayers - 1) {
+                        //         player = 0;
+                        //     }
+                        //     else {
+                        //         player++;
+                        //     }
+                        //     // reset things for next player
+                        //     hand.clear();
+                        //     images.clear();
+                        //     selection.clear();
+                        //     GameFrame.dispose();
+                        //     playGame(); 
+                        // }
                         // sort and check rolls of the hand
                         playerVec.get(player).sortRolls();
                         score.checkRolls(hand);
