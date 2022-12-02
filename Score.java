@@ -68,6 +68,7 @@ public class Score {
             }
             else if(check == 4) {
                 this.fourkind = getTotal(rolls);
+                this.threeKind = getTotal(rolls);
             }
             else if(check == 2) {
                 twoKind += 1;
