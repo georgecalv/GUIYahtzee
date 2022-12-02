@@ -34,7 +34,7 @@ public class EndGame {
         sortPlayerVec();
         // Frames and panels
         JFrame EndFrame = new JFrame("End Game");
-        EndFrame.setLayout(new BorderLayout());
+        // EndFrame.setLayout(new BorderLayout());
 
         JPanel imageP = new JPanel();
         imageP.setBackground(new Color(184, 184, 184));
@@ -44,10 +44,6 @@ public class EndGame {
         // has winner label
         JPanel winner = new JPanel();
         winner.setBackground(new Color(184, 184, 184));
-        // has leaderboard
-        JPanel leaderboard = new JPanel();
-        leaderboard.setBackground(new Color(184, 184, 184));
-        leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
 
         // label for winner
         JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
@@ -56,6 +52,10 @@ public class EndGame {
         winner.add(win);
 
         // create leaderboard 
+        JPanel leaderboard = new JPanel();
+        leaderboard.setBackground(new Color(184, 184, 184));
+        leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
+
         JLabel tmp;
         for(int i = 0; i < this.playerVec.size(); i++) {
             tmp = new JLabel((i + 1) + ". " + this.playerVec.get(i).getName() + " Score: " + this.playerVec.get(i).getTotal());
@@ -63,10 +63,12 @@ public class EndGame {
             tmp.setForeground(Color.white);
             leaderboard.add(tmp);
         }
+
         // play again button
         JButton newGame = new JButton("Play Again?");
         newGame.setFont(new Font("Britannic Bold", Font.BOLD, 28));
         newGame.setPreferredSize(new Dimension(400, 100));
+
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // starts new game of yahtzee
@@ -75,6 +77,7 @@ public class EndGame {
                 dp.Display();
             }
         });
+
         // add panels and button
         EndFrame.add(imageP, BorderLayout.PAGE_START);
         EndFrame.add(winner, BorderLayout.CENTER);
