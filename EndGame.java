@@ -34,26 +34,33 @@ public class EndGame {
         sortPlayerVec();
         // Frames and panels
         JFrame Frame = new JFrame("End Game");
+        Frame.setLayout(new BoxLayout(Frame.getContentPane(), BoxLayout.PAGE_AXIS));
         // has winner label
         JPanel winner = new JPanel();
+        winner.setBackground(new Color(184, 184, 184));
         // has leaderboard
         JPanel losers = new JPanel();
+        losers.setBackground(new Color(184, 184, 184));
         losers.setLayout(new BoxLayout(losers, BoxLayout.PAGE_AXIS));
 
         // label for winner
         JLabel win = new JLabel("Congratulations " + this.playerVec.get(0).getName() + ", You Won!");
-        win.setFont(new Font("Serif", Font.PLAIN, 26));
+        win.setFont(new Font("Copperplate", Font.PLAIN, 28));
+        win.setForeground(Color.red);
         winner.add(win);
 
         // create leaderboard 
         JLabel tmp;
         for(int i = 0; i < this.playerVec.size(); i++) {
             tmp = new JLabel((i + 1) + ". " + this.playerVec.get(i).getName() + " Score: " + this.playerVec.get(i).getTotal());
-            tmp.setFont(new Font("Serif", Font.PLAIN, 16));
+            tmp.setFont(new Font("Copperplate", Font.PLAIN, 26));
+            tmp.setForeground(Color.white);
             losers.add(tmp);
         }
         // play again button
         JButton newGame = new JButton("Play Again?");
+        newGame.setFont(new Font("Britannic Bold", Font.BOLD, 28));
+        newGame.setPreferredSize(new Dimension(400, 100));
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // starts new game of yahtzee
@@ -63,9 +70,9 @@ public class EndGame {
             }
         });
         // add panels and button
-        Frame.add(newGame);
         Frame.add(winner);
         Frame.add(losers);
+        Frame.add(newGame);
         
         // fraem settings
         Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

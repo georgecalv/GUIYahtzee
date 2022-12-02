@@ -100,7 +100,7 @@ public class MakePlayers {
 
         JLabel enterPlayerNames = new JLabel("Enter Your Player Names:");
         enterPlayerNames.setFont(new Font("Copperplate", Font.BOLD, 56));
-        enterPlayerNames.setForeground(Color.white);
+        enterPlayerNames.setForeground(Color.red);
         titleP.add(enterPlayerNames);
 
         // add panels
