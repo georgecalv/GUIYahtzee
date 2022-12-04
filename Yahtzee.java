@@ -11,6 +11,10 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Yahtzee {
     // runs ands displays game of yahtzee
@@ -98,6 +102,20 @@ public class Yahtzee {
                 int turn = 0;
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Reroll button clicked");
+
+                    try{
+
+                        String soundName = "images/Boom.wav";
+                        AudioInputStream audio = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audio);
+                        clip.start();
+                    }
+                    catch(Exception exc){
+                        System.err.println(exc.getMessage());
+                    }
+                    
+
                     if(turn <= 1) {
                         for(int j = 0; j < numDie; j++) {
                             // check dice is not selected
@@ -236,6 +254,18 @@ public class Yahtzee {
             dispScoreCard.setPreferredSize(new Dimension(300, 100));
             dispScoreCard.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+
+                    try{
+                        String soundName = "images/AHHH.wav";
+                        AudioInputStream audio = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audio);
+                        clip.start();
+                    }
+                    catch(Exception exc){
+                        System.err.println(exc.getMessage());
+                    }
+
                     // add scorecard to new fraem and display it to user 
                     System.out.println("Display Score card clicked");
                     JPanel card = playerVec.get(player).displayScoreCard();
@@ -382,5 +412,4 @@ public class Yahtzee {
         // return scaled image
         return new ImageIcon(image.getImage().getScaledInstance(75, 75, Image.SCALE_DEFAULT));
     }
-
 }

@@ -83,7 +83,7 @@ public class MakePlayers {
                 String[] playerNames = new String[numPlayers];
                 // getting names added
                 for(int j = 0; j < numPlayers; j++) {
-                    playerNames[j] = textBoxes.get(j).getText();
+                    playerNames[j] = textBoxes.get(j).getText().substring(0, 30);
                 }
                 // close frame
                 PlayerFrame.dispose();
