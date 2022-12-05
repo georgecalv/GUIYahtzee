@@ -262,39 +262,42 @@ public class Yahtzee {
             dispScoreCard.setFont(new Font("Britannic Bold", Font.BOLD, 24));
             dispScoreCard.setPreferredSize(new Dimension(300, 100));
             dispScoreCard.addActionListener(new ActionListener() {
+                int times = 0;
                 public void actionPerformed(ActionEvent e) {
+                    times += 1;
+                    if(times <= 1) {
+                        addSoundEffect("sound-effects/Button.wav");
 
-                    addSoundEffect("sound-effects/Button.wav");
-
-                    // add scorecard to new fraem and display it to user 
-                    System.out.println("Display Score card clicked");
-
-                    JPanel card = playerVec.get(player).displayScoreCard();
-                    JFrame cardFrame = new JFrame("Score Card");
-                    JPanel p = new JPanel();
-                    p.setBackground(new Color(184,184,184));
-
-                    JButton close = new JButton("Close");
-                    close.setFont(new Font("Britannic Bold", Font.BOLD, 18));
-                    close.setPreferredSize(new Dimension(100, 40));
-                    close.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-
-                            addSoundEffect("sound-effects/Button.wav");
-                            cardFrame.dispose();
-                            System.out.println("Close ScoreCard Frame");
-                        }
-                    });
-                    p.add(close);
-                    card.add(p);
-                    cardFrame.add(card);
-                    
-                    // so it doenst stop full program
-                    cardFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    cardFrame.setSize(350,(sideDie * 10) + 400);
-                    cardFrame.setLocationRelativeTo(GameFrame);
-                    cardFrame.setResizable(false);
-                    cardFrame.setVisible(true); 
+                        // add scorecard to new fraem and display it to user 
+                        System.out.println("Display Score card clicked");
+    
+                        JPanel card = playerVec.get(player).displayScoreCard();
+                        JFrame cardFrame = new JFrame("Score Card");
+                        JPanel p = new JPanel();
+                        p.setBackground(new Color(184,184,184));
+    
+                        JButton close = new JButton("Close");
+                        close.setFont(new Font("Britannic Bold", Font.BOLD, 18));
+                        close.setPreferredSize(new Dimension(100, 40));
+                        close.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+    
+                                addSoundEffect("sound-effects/Button.wav");
+                                cardFrame.dispose();
+                                System.out.println("Close ScoreCard Frame");
+                            }
+                        });
+                        p.add(close);
+                        card.add(p);
+                        cardFrame.add(card);
+                        
+                        // so it doenst stop full program
+                        cardFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                        cardFrame.setSize(350,(sideDie * 10) + 400);
+                        cardFrame.setLocationRelativeTo(GameFrame);
+                        cardFrame.setResizable(false);
+                        cardFrame.setVisible(true); 
+                    }
                 }
             });
             // add buttons

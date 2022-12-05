@@ -41,7 +41,8 @@ public class EndGame {
         sortPlayerVec();
 
         // end game music
-        // addSoundEffect(null);
+        addSoundEffect("sound-effects/ApplauseCrowdCheeringsoundeffect.wav");
+        addSoundEffect("sound-effects/funkytownlowquality.wav");
         
         // Frames and panels
         JFrame EndFrame = new JFrame("End Game");
