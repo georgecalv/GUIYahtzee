@@ -98,6 +98,7 @@ public class Yahtzee {
                 DiceHand.add(images.get(i));
                 Select.add(selection.get(i));
             }
+
             // add buttons for re roll and display score card
             JButton reRoll = new JButton("Reroll");
             reRoll.setFont(new Font("Britannic Bold", Font.BOLD, 30));
@@ -107,6 +108,7 @@ public class Yahtzee {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Reroll button clicked");
 
+                    // Check if all boxes are selected and ready to score
                     int count = 0;
                     for (int i = 0; i < numDie; i++){
 
@@ -403,7 +405,12 @@ public class Yahtzee {
         // return scaled image
         return new ImageIcon(image.getImage().getScaledInstance(75, 75, Image.SCALE_DEFAULT));
     }
-
+    /**
+    Play a sound effect for buttons
+    *
+    * @param String object of the filepath to the sound byte
+    * @return nothing
+    */
     public void addSoundEffect (String filepath){
 
         try{

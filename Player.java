@@ -28,6 +28,7 @@ public class Player {
     * @return initializes all variables needed
     */
     public Player(String name, int numDie, int sideDie) {
+
         this.name = name;
         this.numDie = numDie;
         this.sideDie = sideDie;
@@ -114,6 +115,7 @@ public class Player {
     * @return Jpanel containg the scorecard
     */
     public JPanel displayScoreCard() {
+
         JPanel listPane = new JPanel();
         listPane.setBackground(new Color(184, 184, 184));
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
@@ -149,23 +151,28 @@ public class Player {
     * @return ArrayList<JRadioButton> the choices that a user can choose
     */
     public ArrayList<JRadioButton> getScoreCard(Score score) {
+
         ArrayList<JRadioButton> buttons = new ArrayList<JRadioButton>();
         JRadioButton tmp;
         int lines[] = score.getHigherScores();
         int lowerScores[] = score.getLowerScores();
+
         JRadioButton zero = new JRadioButton("Skip Scoring this Turn", false);
         zero.setName("0");
         buttons.add(0, zero);
+
         for(int i = 1; i <= this.sideDie; i++) {
             tmp = new JRadioButton("" + i + "-Side Line: " + lines[i - 1], false);
             tmp.setName("" + i);
             buttons.add(i, tmp);
         }
+
         for(int j = 0; j < 7; j++) {
             tmp = new JRadioButton(lowerNames[j] + ": " + lowerScores[j], false);
             tmp.setName(lowerNames[j]);
             buttons.add(this.sideDie + (j + 1), tmp);
         }
+
         return buttons;
     }
         /**
@@ -175,10 +182,13 @@ public class Player {
     * @return score added to users scores
     */
     public void addScore(String response, Score score) {
+
         int lines[] = score.getHigherScores();
         int lowerScores[] = score.getLowerScores();
+
         // integer which means it is higher scorecard
         if(this.testInt(response)) {
+
             if(Integer.parseInt(response) == 0) {
                 this.userPicks.add("0");
             }
@@ -240,6 +250,7 @@ public class Player {
     * @return caculated bonus from the of scores based on the final score
     */
     public int getBonuses(Score score) {
+
         int bonus = 0;
         if(this.totalHigherScores >= 63) {
             bonus += 35;
@@ -257,6 +268,7 @@ public class Player {
     * @return bool of whether it is a number or not
     */
     private boolean testInt(String s) {
+
         try {
             int intValue = Integer.parseInt(s);
             return true;
@@ -273,6 +285,7 @@ public class Player {
     * @return checks if user inpurt was already used true if used
     */
     public boolean checkUsed(String response) {
+
         if(this.userPicks.contains(response)) {
             return true;
         }
@@ -321,6 +334,7 @@ public class Player {
     * @return resets variables for a new game of yahtzee
     */
     public void newGame() {
+
         this.GrandTotal = 0;
         this.userPicks.clear();
         for(int i = 0; i < this.sideDie + 7; i++) {
@@ -334,11 +348,10 @@ public class Player {
     * @return boolean true id the card is full in constant time may i add ;)
     */
     public boolean checkFullScoreCard() {
+
         if(this.userPicks.size() == this.sideDie + 8) {
             return true;
         }
         return false;
     }
-
-
 }

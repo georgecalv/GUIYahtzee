@@ -91,10 +91,13 @@ public class MakePlayers {
 
                 // getting names added
                 for(int j = 0; j < numPlayers; j++) {
+
                     if (textBoxes.get(j).getText().equals(""))
                         playerNames[j] = "Player " + (j + 1);
+
                     else if (textBoxes.get(j).getText().length() > 30)
                         playerNames[j] = textBoxes.get(j).getText().substring(0, 29);
+                        
                     else
                         playerNames[j] = textBoxes.get(j).getText();
                 }

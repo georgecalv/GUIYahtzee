@@ -18,6 +18,7 @@ import java.awt.event.*;
 import java.io.File;
 
 public class EndGame {
+
     Vector<Player> playerVec;
 
     /*
@@ -35,8 +36,10 @@ public class EndGame {
     * @return Displays leaderboard and the winner
     */
     public void end() {
+
         // sort so the winner is at the beginning of the array
         sortPlayerVec();
+        
         // Frames and panels
         JFrame EndFrame = new JFrame("End Game");
         EndFrame.setLayout(new BorderLayout());
@@ -115,7 +118,12 @@ public class EndGame {
             }
         }
     }
-
+    /**
+    Play a sound effect for buttons
+    *
+    * @param String object of the filepath to the sound byte
+    * @return nothing
+    */
     public void addSoundEffect (String filepath){
 
         try{

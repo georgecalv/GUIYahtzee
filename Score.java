@@ -40,6 +40,7 @@ public class Score {
     * @return prints put the scores for that round
     */
     public void checkRolls(ArrayList<Integer> rolls) {
+
         int twoKind = 0;
         this.threeKind = 0; 
         this.fourkind = 0;
@@ -48,6 +49,7 @@ public class Score {
         this.smallStraight = 0;
         this.chance = getTotal(rolls);
         this.yahtzee = 0; 
+
         // getting this.lines score
         int check = 0;
         for(int i = 1; i <= this.sideDie; i++) {
@@ -57,6 +59,7 @@ public class Score {
                 }
             }
         }
+        
         for(int j = 0; j < this.sideDie; j++) {
             // scored that number
             if((this.lines[j] % (j + 1)) == 0) {

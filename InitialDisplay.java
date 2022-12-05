@@ -15,6 +15,7 @@ public class InitialDisplay {
     public InitialDisplay() {
         // do nothing
     }
+    
     public void Display() {
         // intial Game startGameFrame settings
         JFrame startGameFrame = new JFrame("Yahtzee");
@@ -136,7 +137,12 @@ public class InitialDisplay {
         startGameFrame.setResizable(false);
         startGameFrame.setVisible(true);  
     }
-
+    /**
+    Play a sound effect for buttons
+    *
+    * @param String object of the filepath to the sound byte
+    * @return nothing
+    */
     public void addSoundEffect (String filepath){
 
         try{
