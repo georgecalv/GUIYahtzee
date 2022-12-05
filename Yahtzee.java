@@ -69,8 +69,12 @@ public class Yahtzee {
             JPanel PlayerTurn = new JPanel(new FlowLayout());
             PlayerTurn.setBackground(new Color(184, 184, 184));
 
-            JPanel Select = new JPanel(new FlowLayout());
+            JPanel Select = new JPanel();
             Select.setBackground(new Color(184, 184, 184));
+
+            JLabel instL = new JLabel("Select the boxes of the dice you want to keep:");
+            instL.setFont(new Font("Brittanic Bold", Font.PLAIN, 16));
+            Select.add(instL);
 
             JPanel Options = new JPanel(new FlowLayout());
             Options.setBackground(new Color(184, 184, 184));
