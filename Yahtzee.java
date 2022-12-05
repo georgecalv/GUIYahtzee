@@ -74,7 +74,9 @@ public class Yahtzee {
 
             JLabel instL = new JLabel("Select the boxes of the dice you want to keep:");
             instL.setFont(new Font("Brittanic Bold", Font.PLAIN, 16));
-            Select.add(instL);
+            Box s = Box.createHorizontalBox();
+            // s.add(instL);
+            // Select.add(instL);
 
             JPanel Options = new JPanel(new FlowLayout());
             Options.setBackground(new Color(184, 184, 184));
@@ -94,10 +96,19 @@ public class Yahtzee {
             // lists of images of die and the checkbox for each die
             ArrayList<JCheckBox> images = displayHand(this.hand);
             ArrayList<JCheckBox> selection = makeSelections();
+
             for(int i = 0; i < images.size(); i++) {
                 DiceHand.add(images.get(i));
-                Select.add(selection.get(i));
+                Box checks = Box.createVerticalBox();
+                checks.add(new JLabel("D" + (i + 1)+ ":"));
+                checks.add(selection.get(i));
+                Select.add(checks);
+                // Select.add(selection.get(i));
             }
+            // s.add(checks);
+            // s.setBounds(500, 800, 200, 20);
+            Select.add(s);
+            // Select.add(checks);
 
             // add buttons for re roll and display score card
             JButton reRoll = new JButton("Reroll");
