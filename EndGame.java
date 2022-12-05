@@ -8,9 +8,14 @@
 * @version v1.0 11/29/22
 */
 import java.util.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class EndGame {
     Vector<Player> playerVec;
@@ -69,6 +74,9 @@ public class EndGame {
 
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                addSoundEffect("sound-effects/Button.wav");
+                
                 // starts new game of yahtzee
                 InitialDisplay dp = new InitialDisplay();
                 EndFrame.dispose();
@@ -108,4 +116,17 @@ public class EndGame {
         }
     }
 
+    public void addSoundEffect (String filepath){
+
+        try{
+            String soundName = filepath;
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }
+        catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }
 }

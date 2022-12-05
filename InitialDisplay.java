@@ -1,4 +1,9 @@
 import java.awt.event.*;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,6 +42,8 @@ public class InitialDisplay {
 
                 System.out.println("Start Game Button Clicked");
                 configP.removeAll();
+
+                addSoundEffect("sound-effects/StartGame.wav");
 
                 JLabel sdLbl = new JLabel("Number of Sides: ");
                 JLabel dieLbl = new JLabel("Number of Dice: ");
@@ -91,6 +98,8 @@ public class InitialDisplay {
                     // runs game based on user selections
                     public void actionPerformed(ActionEvent e) {
 
+                        addSoundEffect("sound-effects/Button.wav");
+
                         System.out.println("Okay Button clicked");
 
                         int index = sd.getSelectedIndex();
@@ -126,5 +135,19 @@ public class InitialDisplay {
         startGameFrame.setLocationRelativeTo(null);
         startGameFrame.setResizable(false);
         startGameFrame.setVisible(true);  
+    }
+
+    public void addSoundEffect (String filepath){
+
+        try{
+            String soundName = filepath;
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }
+        catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
     }
 }
