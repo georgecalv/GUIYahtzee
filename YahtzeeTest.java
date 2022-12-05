@@ -1,13 +1,22 @@
+/**
+* This runs the unit tests on system internal objects.
+* CPSC 224-01, Fall 2022
+* lil' Yahtzee
+* No sources to cite.
+* 
+* @author George Calvert, Henry Stone, David Giacobbi
+* @version v1.0 11/29/22
+*/
+
 import static org.junit.Assert.assertTrue;
-
 import java.beans.Transient;
-
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class YahtzeeTest {
+
+    // Die Object
     @Test
     public void testGetNumSides(){
         //create a die with 6 sides
@@ -27,7 +36,8 @@ public class YahtzeeTest {
         //assert
         assert(testDie.rollDie() <= maxNum);
     }
-    //player
+
+    //Player Object
     @Test
     public void testPlayerRollDieArrayLength(){
         //create a new player
@@ -59,7 +69,8 @@ public class YahtzeeTest {
 
         assert(testPlayer.getTotal() == testTotal);
     }
-    //score
+    
+    //Score Object
     @Test
     public void testCheckRoll(){
         //create a new score object

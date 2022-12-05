@@ -11,6 +11,10 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Yahtzee {
     // runs ands displays game of yahtzee
@@ -65,8 +69,12 @@ public class Yahtzee {
             JPanel PlayerTurn = new JPanel(new FlowLayout());
             PlayerTurn.setBackground(new Color(184, 184, 184));
 
-            JPanel Select = new JPanel(new FlowLayout());
+            JPanel Select = new JPanel();
             Select.setBackground(new Color(184, 184, 184));
+
+            JLabel instL = new JLabel("Select the boxes of the dice you want to keep:");
+            instL.setFont(new Font("Brittanic Bold", Font.PLAIN, 16));
+            Select.add(instL);
 
             JPanel Options = new JPanel(new FlowLayout());
             Options.setBackground(new Color(184, 184, 184));
@@ -90,6 +98,7 @@ public class Yahtzee {
                 DiceHand.add(images.get(i));
                 Select.add(selection.get(i));
             }
+
             // add buttons for re roll and display score card
             JButton reRoll = new JButton("Reroll");
             reRoll.setFont(new Font("Britannic Bold", Font.BOLD, 30));
@@ -98,7 +107,22 @@ public class Yahtzee {
                 int turn = 0;
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Reroll button clicked");
+
+                    // Check if all boxes are selected and ready to score
+                    int count = 0;
+                    for (int i = 0; i < numDie; i++){
+
+                        if (selection.get(i).isSelected())
+                            count++;
+
+                        if (count == numDie)
+                            turn = 3;
+                    }
+
                     if(turn <= 1) {
+
+                        addSoundEffect("sound-effects/RollDice.wav");
+
                         for(int j = 0; j < numDie; j++) {
                             // check dice is not selected
                             if(!selection.get(j).isSelected()) {
@@ -120,26 +144,9 @@ public class Yahtzee {
                     }
                     // turn ended
                     else {
-                        // check if there is a full scorecard
-                        // if(playerVec.get(player).checkFullScoreCard()) {
-                        //     // reset score checking for next player
-                        //     score.resetScores();
-                        //     // check if should go to next player or end the entire game
-                        //     System.out.println("end turn");
-                        //     // go to next player
-                        //     if(player == numPlayers - 1) {
-                        //         player = 0;
-                        //     }
-                        //     else {
-                        //         player++;
-                        //     }
-                        //     // reset things for next player
-                        //     hand.clear();
-                        //     images.clear();
-                        //     selection.clear();
-                        //     GameFrame.dispose();
-                        //     playGame(); 
-                        // }
+                        
+                        addSoundEffect("sound-effects/Button.wav");
+
                         // sort and check rolls of the hand
                         playerVec.get(player).sortRolls();
                         score.checkRolls(hand);
@@ -162,12 +169,18 @@ public class Yahtzee {
                         // Add score to score card button
                         JPanel addScoreP = new JPanel();
                         addScoreP.setBackground(new Color(184, 184, 184));
+
                         JButton addScore = new JButton("Add Score");
                         addScore.setFont(new Font("Britannic Bold", Font.BOLD, 28));
                         addScore.setPreferredSize(new Dimension(300, 100));
+
                         addScore.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
+
                                 System.out.println("Added Score");
+
+                                addSoundEffect("sound-effects/AddScore.wav");
+
                                 // check which score the user selected
                                 for(int j = 0; j < choices.size(); j++) {
                                     if(choices.get(j).isSelected()) {
@@ -188,6 +201,9 @@ public class Yahtzee {
                                         endTurn.setFont(new Font("Britannic Bold", Font.BOLD, 36));
                                         endTurn.addActionListener(new ActionListener() {
                                             public void actionPerformed(ActionEvent e) {
+
+                                                addSoundEffect("sound-effects/Button.wav");
+
                                                 // reset score object
                                                 score.resetScores();
                                                 System.out.println("end turn");
@@ -236,17 +252,24 @@ public class Yahtzee {
             dispScoreCard.setPreferredSize(new Dimension(300, 100));
             dispScoreCard.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+
+                    addSoundEffect("sound-effects/Button.wav");
+
                     // add scorecard to new fraem and display it to user 
                     System.out.println("Display Score card clicked");
+
                     JPanel card = playerVec.get(player).displayScoreCard();
                     JFrame cardFrame = new JFrame("Score Card");
                     JPanel p = new JPanel();
                     p.setBackground(new Color(184,184,184));
+
                     JButton close = new JButton("Close");
                     close.setFont(new Font("Britannic Bold", Font.BOLD, 18));
                     close.setPreferredSize(new Dimension(100, 40));
                     close.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+
+                            addSoundEffect("sound-effects/Button.wav");
                             cardFrame.dispose();
                             System.out.println("Close ScoreCard Frame");
                         }
@@ -382,5 +405,23 @@ public class Yahtzee {
         // return scaled image
         return new ImageIcon(image.getImage().getScaledInstance(75, 75, Image.SCALE_DEFAULT));
     }
+    /**
+    Play a sound effect for buttons
+    *
+    * @param String object of the filepath to the sound byte
+    * @return nothing
+    */
+    public void addSoundEffect (String filepath){
 
+        try{
+            String soundName = filepath;
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }
+        catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }
 }

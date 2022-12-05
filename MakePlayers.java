@@ -11,6 +11,10 @@ import java.awt.event.*;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 
 public class MakePlayers {
@@ -79,11 +83,23 @@ public class MakePlayers {
 
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Play Game button Clicked");
                 String[] playerNames = new String[numPlayers];
+
+                addSoundEffect("sound-effects/Button.wav");
+
                 // getting names added
                 for(int j = 0; j < numPlayers; j++) {
-                    playerNames[j] = textBoxes.get(j).getText();
+
+                    if (textBoxes.get(j).getText().equals(""))
+                        playerNames[j] = "Player " + (j + 1);
+
+                    else if (textBoxes.get(j).getText().length() > 30)
+                        playerNames[j] = textBoxes.get(j).getText().substring(0, 29);
+                        
+                    else
+                        playerNames[j] = textBoxes.get(j).getText();
                 }
                 // close frame
                 PlayerFrame.dispose();
@@ -114,5 +130,19 @@ public class MakePlayers {
         PlayerFrame.setLocationRelativeTo(null);
         PlayerFrame.setResizable(false);
         PlayerFrame.setVisible(true);  
+    }
+
+    public void addSoundEffect (String filepath){
+
+        try{
+            String soundName = filepath;
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }
+        catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
     }
 }
