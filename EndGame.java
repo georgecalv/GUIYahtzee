@@ -39,6 +39,9 @@ public class EndGame {
 
         // sort so the winner is at the beginning of the array
         sortPlayerVec();
+
+        // end game music
+        // addSoundEffect(null);
         
         // Frames and panels
         JFrame EndFrame = new JFrame("End Game");
@@ -124,7 +127,7 @@ public class EndGame {
     * @param String object of the filepath to the sound byte
     * @return nothing
     */
-    public void addSoundEffect (String filepath){
+    public void addSoundEffect(String filepath){
 
         try{
             String soundName = filepath;

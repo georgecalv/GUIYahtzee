@@ -422,7 +422,7 @@ public class Yahtzee {
     * @param String object of the filepath to the sound byte
     * @return nothing
     */
-    public void addSoundEffect (String filepath){
+    public void addSoundEffect(String filepath){
 
         try{
             String soundName = filepath;
