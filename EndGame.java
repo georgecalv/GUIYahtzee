@@ -39,6 +39,10 @@ public class EndGame {
 
         // sort so the winner is at the beginning of the array
         sortPlayerVec();
+
+        // end game music
+        addSoundEffect("sound-effects/ApplauseCrowdCheeringsoundeffect.wav");
+        addSoundEffect("sound-effects/funkytownlowquality.wav");
         
         // Frames and panels
         JFrame EndFrame = new JFrame("End Game");
@@ -56,7 +60,7 @@ public class EndGame {
         leaderboard.setLayout(new BoxLayout(leaderboard, BoxLayout.PAGE_AXIS));
 
         // label for winner
-        JLabel title = new JLabel("Yahtzee Leaderboard");
+        JLabel title = new JLabel("Leaderboard");
         title.setFont(new Font("Copperplate", Font.PLAIN, 58));
         leaderboard.add(title);
 
@@ -124,7 +128,7 @@ public class EndGame {
     * @param String object of the filepath to the sound byte
     * @return nothing
     */
-    public void addSoundEffect (String filepath){
+    public void addSoundEffect(String filepath){
 
         try{
             String soundName = filepath;

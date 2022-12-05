@@ -122,7 +122,7 @@ public class Player {
 
         // creating label
         ArrayList<String> result = new ArrayList<String>(); 
-        result.add("YOUR CURRENT SCORECARD");
+        result.add(this.name + "'s CURRENT SCORECARD");
         result.add("=================================");
         result.add("Upper Section");
         result.add("=================================");
